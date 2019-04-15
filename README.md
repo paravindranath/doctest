@@ -6,10 +6,10 @@ This is a test to check mark down editor integrated with GitHub.
 
 I am checking syncing to branch now.
 
-It's 
+It's synced in master as well. Checking...
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjg2MDM5MzMxLC01MDAxOTQyMDQsMTU3MT
-A2NzM4NywxOTg0MDQ3MjMxXX0=
+eyJoaXN0b3J5IjpbLTE5OTMwMDE2MDYsLTUwMDE5NDIwNCwxNT
+cxMDY3Mzg3LDE5ODQwNDcyMzFdfQ==
 -->
