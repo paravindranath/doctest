@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Image Pipeline - DocTest</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">DocTest</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Welcome to MkDocs</a>
+                            </li>
+                            <li >
+                                <a href="../AWSImagePipeline.md/">AWSImagePipeline.md</a>
+                            </li>
+                            <li class="active">
+                                <a href="./">Image Pipeline</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../AWSImagePipeline.md/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#background">Background</a></li>
+            <li><a href="#objective">Objective</a></li>
+        <li class="main "><a href="#brainstorming">Brainstorming</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+            <li><a href="#error-logs">Error Logs</a></li>
+        <li class="main "><a href="#relevant-data">Relevant Data</a></li>
+            <li><a href="#atriuid-batch-script-logic">ATRIUID / Batch script logic</a></li>
+            <li><a href="#brainstorming-drawing-board">Brainstorming Drawing Board</a></li>
+            <li><a href="#trc-amyloid-pet-scan-data-flow">TRC Amyloid PET Scan &amp; Data Flow</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>Image Pipeline</p>
+<p>Status</p>
+<p>NOT STARTED</p>
+<p>Impact</p>
+<p>LOW</p>
+<p>Driver</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a>,  <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a></p>
+<p>Approver</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo Jimenez-Maggiora</a></p>
+<p>Contributors</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a>,  <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>,  <a href="https://atrihub.atlassian.net/wiki/display/~jiashins">Jia-Shing So</a></p>
+<p>Informed</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a></p>
+<p>Due date</p>
+<p>18 Jan 2019</p>
+<p>Outcome</p>
+<p>note: subject and participant are interchangeable, Record ID = subjecteventcrf.id, upload form name = ddcrf.name, upload field name = ddfile.name</p>
+<h1 id="background">Background</h1>
+<h2 id="objective">Objective</h2>
+<p>Design and create a pipeline that synchronizes image files between two s3 buckets: EDC source bucket and image bucket. Notify all stakeholders when new image files are available in the image bucket 'quarantine' folder. Track the transaction logs in the EDC database.</p>
+<p>The pipeline should be triggered manually on a specific file or set of files.</p>
+<h3 id="edc-source-bucket">EDC source bucket</h3>
+<p>Image file are uploaded by the EDC system users via the file uploader widget and stored in the EDC source bucket.</p>
+<ul>
+<li>bucket name: atri-edc-trc-production-<em>[aws account ID]</em></li>
+<li>source folder: subjecteventcrffile</li>
+<li>file path: subjecteventcrffile/<em>[subject.id]</em>/<em>[subjecteventcrf.id]</em>/<em>[ddfile.name]</em>/</li>
+<li>file name: file version code + file extension</li>
+</ul>
+<h3 id="image-destination-bucket">Image destination bucket</h3>
+<p>Image files in the destination bucket will be made available to collaborators (e.g. labs) for further process.</p>
+<ul>
+<li>bucket name: atri-edc-trc-production-img-<em>[aws account ID]</em></li>
+<li>destination folder: quarantine</li>
+<li>file path: quarantine/[ddcrf.name][ddfile.name]/</li>
+<li>file name: [ddcrf.name]<em>[ddfile.name]</em>[participant code]<em>[event code]</em>[subjecteventcrf.id]<em>[subjecteventcrffile.revisionnumber]</em>[edcpipelinefile.id]_[timestamp] + file extension  <ul>
+<li>note: strip out any whitespace</li>
+<li>
+<p>timestamp</p>
+<ul>
+<li>
+<p>Q: timestamp when file is uploaded to source bucket? destination bucket?</p>
+<ul>
+<li>when the file is first uploaded into the quarantine folder (edcpipelinefile.ts_create)  </li>
+</ul>
+</li>
+<li>
+<p>format: YYYYMMDD_HHMMSS</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="brainstorming">Brainstorming</h1>
+<h2 id="design">Design</h2>
+<h3 id="flow">Flow</h3>
+<p><strong>Q: should we suggest to add an unquarantine folder? to keep quarantine as read only for users? (depends on whether the SFTP wrapper can handle folder level permissions)</strong></p>
+<h3 id="track">Track</h3>
+<p>Track the following information in the EDC database:</p>
+<ul>
+<li>subjecteventcrffile.id</li>
+<li>filepath - file path in the destination s3 bucket</li>
+<li>filename - file name in the destination s3 bucket</li>
+<li>FileID - unqiue ID for each image file transferred to the destination folder<ul>
+<li><strong>Q: can we use SubjectEventCrfFile.id as the FileID?</strong></li>
+</ul>
+</li>
+<li>studyUID<strong>:</strong> DICOM HEADER (0020,000D) Unique identifier for the Study.</li>
+<li>serieUID<strong>:</strong> DICOM HEADER (0020,000E) Unique identifier of the Series.</li>
+<li>serienum<strong>:</strong> DICOM HEADER (0020,0011) A number that identifies this Series.</li>
+<li>ScanID -  a unique combination of studyUID and serieUID for each fileID</li>
+<li>ATRIUID - Uniqeue ID store in DICOM header to identify the image set: [fileID].[scanID]</li>
+</ul>
+<p>Track the following information in a log file (s3 bucket -  <strong>where?</strong>):</p>
+<ul>
+<li>execution error</li>
+<li>execution result</li>
+</ul>
+<h3 id="notification">Notification</h3>
+<h4 id="type-of-users">Type of users</h4>
+<ul>
+<li>pipeline user: labs who reviews and process the image files when they are available in the quarantine folder</li>
+<li>admin user: developers of the image pipeline</li>
+</ul>
+<h4 id="type-of-notifications">Type of notifications</h4>
+<ul>
+<li>for pipeline users: a digest report runs [nightly|configurable schedule]  <ul>
+<li>create a mailing list:  <a href="mailto:trc-images-l@atrihub.io">trc-images-l@atrihub.io</a></li>
+<li>report includes a list of new files made available to the quarantine folder</li>
+<li>report includes count of new files, count of files failed to be transferred/processed</li>
+</ul>
+</li>
+<li>for admin users: error logs (immediately after execution), success logs (<strong>immediately? on a schedule?</strong>)<ul>
+<li>create a mailing list:  <a href="mailto:trc-images-admin-l@atrihub.io">trc-images-admin-l@atrihub.io</a></li>
+</ul>
+</li>
+<li>Q: do people need to be notified when new files uploaded to the quarantine folder?</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<h3 id="aws-edc-rds-read-replica">(AWS) EDC RDS read replica</h3>
+<ul>
+<li>Create a read only replica for the EDC database, so the pipeline can find subject, crf information during the transfer  <ul>
+<li><strong>Q: what's the delay between real database and the replica? (trigger wait time depends on this response)</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="database">Database</h3>
+<p>File information tracked in the database tables.</p>
+<h4 id="pipelineedcpipeline">Pipeline.EDCPipeline</h4>
+<p>register each pipeline (e.g. pipeline for image file, pipeline for audio files, etc.</p>
+<p>Field</p>
+<p>ID</p>
+<p>Code</p>
+<p>Label</p>
+<p>DDFiles</p>
+<h4 id="pipelineedcpipelinefile">pipeline.EDCPipelineFile</h4>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Title</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td></td>
+</tr>
+<tr>
+<td>EDCPipeline.id</td>
+<td></td>
+</tr>
+<tr>
+<td>SubjectEventCrfFile.id</td>
+<td></td>
+</tr>
+<tr>
+<td>file_name</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Field Name</p>
+<p>ID</p>
+<p>EDCPipeline.id</p>
+<p>SubjectEventCrfFile.id</p>
+<p>file_name</p>
+<p>Status</p>
+<p>Started, In Progress, Completed, Failed</p>
+<p>has_error</p>
+<p>T/F</p>
+<h4 id="_1"></h4>
+<h4 id="pipelineedcpipelinefiledicom">pipeline.EDCPipelineFileDicom</h4>
+<p>Field Name</p>
+<p>ID</p>
+<p>EDCPipelineFile.id</p>
+<p>ATRIUID</p>
+<p>studyUID</p>
+<p>serieUID</p>
+<p>serienum</p>
+<p>number_of_instances</p>
+<h3 id="api">API</h3>
+<p>/pipeline/edcpipeline/file</p>
+<pre><code>{
+"pipeline_code": "xxx",
+"subject_event_crf_file_id": "xxx"
+}
+</code></pre>
+<p>/pipeline/edcpipeline/file/dicom/add_scan_info</p>
+<ul>
+<li>post<ul>
+<li>request  body (json)</li>
+</ul>
+</li>
+</ul>
+<p><code>input:</code></p>
+<p><code>{</code></p>
+<p><code>pipeline_code: xxx,</code></p>
+<p><code>subject_event_crf_file_id: xxx,</code></p>
+<p><code>edc_pipieline_file_id: xxxx</code></p>
+<p><code>scans:[</code></p>
+<p><code>{</code></p>
+<p><code>study_uid: xxx,</code></p>
+<p><code>series: [</code></p>
+<p><code>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</code></p>
+<p><code>{series_uid: blah, series_number: halb, number_of_instance: 123},</code></p>
+<p><code>...</code></p>
+<p><code>]</code></p>
+<p><code>},</code></p>
+<p><code>{</code></p>
+<p><code>study_uid: xxx,</code></p>
+<p><code>series: [</code></p>
+<p><code>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</code></p>
+<p><code>{series_uid: blah, series_number: halb, number_of_instance: 123}, ...</code></p>
+<p><code>]</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>output:</code></p>
+<p><code>{</code></p>
+<p><code>"success"``:</code> <code>true``,</code></p>
+<p><code>"error_code"``: reference dictionary (only show</code> <code>if</code>  <code>success is F)</code></p>
+<p><code>"error"``: xxxx (only show</code> <code>if</code>  <code>success is F)</code></p>
+<p><code>"data"``:</code></p>
+<p><code>{</code></p>
+<p><code>edc_pipeline_file_id: 123,</code></p>
+<p><code>pipeline_code: xxx,</code></p>
+<p><code>subject_event_crf_file_id: xxx,</code></p>
+<p><code>scans: [</code></p>
+<p><code>{</code></p>
+<p><code>"study_uid"``: xxx,</code></p>
+<p><code>"series"``: [</code></p>
+<p><code>{``"series_uid"``: aaa,</code> <code>"atri_uid"``: yyy},</code></p>
+<p><code>{``"series_uid"``: aaa,</code> <code>"atri_uid"``: ddd},</code></p>
+<p><code>...</code></p>
+<p><code>]</code></p>
+<p><code>},</code></p>
+<p><code>{</code></p>
+<p><code>"studyuid"``: xxx,</code></p>
+<p><code>"series"``: [</code></p>
+<p><code>{``"series_uid"``: aaa,</code> <code>"atri_uid"``: yyy},</code></p>
+<p><code>{``"series_uid"``: aaa,</code> <code>"atri_uid"``: ddd},</code></p>
+<p><code>}</code></p>
+<p><code>]</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<h3 id="mailing-list">Mailing List</h3>
+<p>Study specific</p>
+<ul>
+<li><a href="mailto:trc-images-l@atrihub.io">trc-images-l@atrihub.io</a>  - for users (e.g. labs)</li>
+<li><a href="mailto:trc-images-admin-l@atrihub.io">trc-images-admin-l@atrihub.io</a>  - for admins</li>
+</ul>
+<h3 id="aws-s3-bucket-temporary">(AWS) S3 bucket - temporary</h3>
+<ul>
+<li>create a temporary s3 bucket used by the step function for file processing</li>
+<li>bucket name: atri-edc-trc-production-img-tmp-[AWS account ID]</li>
+</ul>
+<h3 id="aws-step-function">(AWS) Step Function</h3>
+<ul>
+<li>triggered when a new file is uploaded / updated in S3 source bucket folder "subjecteventcrffile"</li>
+<li>Job name convention: [subject.id]<em>[subjecteventcrf.id]</em>[ddfile.name]<em>[file version code]</em>[timestamp]</li>
+</ul>
+<p><img alt="" src="https://atrihub.atlassian.net/wiki/download/thumbnails/920256553/Screen%20Shot%202019-01-17%20at%201.41.22%20PM.png?version=1&amp;modificationDate=1547761392073&amp;cacheVersion=1&amp;api=v2&amp;width=275&amp;height=250" /></p>
+<h3 id="aws-lambda-function">(AWS) Lambda Function</h3>
+<ul>
+<li>QUERY READ REPLICA:<ul>
+<li>L1 - query file info from the read replica  <ul>
+<li>input: file path and file name from source bucket</li>
+<li>output: file metadata json<ul>
+<li>if file is found  <ul>
+<li>ddcrf.name</li>
+<li>ddfile.name</li>
+<li>participant code</li>
+<li>event code</li>
+<li>subjecteventcrf.id</li>
+<li>subjecteventcrffile.revisionnumber</li>
+<li>subjecteventcrffile.id</li>
+<li>pipeline_code</li>
+</ul>
+</li>
+<li>if file is not found<ul>
+<li>return ERROR</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>step fn - retry function, checks return status of L1 (expect raised ERROR and try for max attempt)</li>
+<li>duration:15 minutes</li>
+<li>frequency: every 30 sec</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Process DCM:<ul>
+<li><strong>Notes:</strong><ul>
+<li>All the following functions process the same file.</li>
+<li>Size may be a restriction for lambda.</li>
+<li>AWS batch can an be an alternate solution.</li>
+</ul>
+</li>
+<li>L5 - parse file and extract the DICOM header<ul>
+<li>input: file path and name</li>
+<li>output: DICOM header info for each scan (list)<ul>
+<li>studyUID</li>
+<li>serieUID</li>
+<li>serienum</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>L7 - write ATRIUID in DICOM header</li>
+<li>L4 - copy processed file from s3 source bucket to s3 temp bucket, rename the file<ul>
+<li>input:<ul>
+<li>source file path and name</li>
+<li>target file path and name</li>
+</ul>
+</li>
+<li>output: successful (True/False)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ADDITIONAL PROCESS:<ul>
+<li>L8 - additional process (such as LONI process)</li>
+</ul>
+</li>
+<li>WRITE META DATA:<ul>
+<li>L6 - call API to write file metadata in study DB (set file status to "in progress")<ul>
+<li>input: L1 and L5 output</li>
+<li>output: successful (True/False)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>COPY TO DESTINATION:<ul>
+<li>L9 - copy file from S3 temp bucket to S3 destination bucket<ul>
+<li>input:<ul>
+<li>s3 temp bucket</li>
+<li>s3 destination bucket</li>
+<li>file path</li>
+<li>file name</li>
+</ul>
+</li>
+<li>output: successful (True/False)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UPDATE STATUS:<ul>
+<li>L10 - call API to update file status in study DB to "done"</li>
+</ul>
+</li>
+<li>ErrorSNS<ul>
+<li>L3 - email/log error for Admin<ul>
+<li>input: error</li>
+<li>output: "status : error"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PROCESS COMPLETION SNS:<ul>
+<li>L11 - email / log to Admin on summary or error<ul>
+<li>if error: call API to update file status in study DB to "error"</li>
+<li>input: status</li>
+<li>output: successful (True/False)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>USER DIGEST (This has to be post pipeline processing - separate Lambda not part of this step fn):<ul>
+<li>L12 - (user digest) send batch summary to users<ul>
+<li>input: duration (last 24 hours etc.)</li>
+<li>output: successful (True/False)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="aws-batch-pipe-4-in-feature-branch">(AWS) Batch  <a href="https://atrihub.atlassian.net/browse/EDCAWS-93?src=confmacro"><img alt="" src="https://atrihub.atlassian.net/secure/viewavatar?size=xsmall&amp;avatarId=11000&amp;avatarType=issuetype" />PIPE-4</a>  IN FEATURE BRANCH</h3>
+<h2 id="error-logs">Error Logs</h2>
+<p>Pipeline errors will be logged in the S3 bucket</p>
+<ul>
+<li>bucket name: atri-edc-trc-production-<em>[aws account ID]</em></li>
+<li>source folder: image_pipelines</li>
+<li>file path: image_pipelines/error_logs/[edcpipeline.code]/</li>
+<li>file name: (matching closely with destination file name under quarantined folder)  <ul>
+<li>[<a href="http://ddcrf.name/">ddcrf.name</a>]<em>[<a href="http://ddfile.name/">ddfile.name</a>]</em>[participant code]<em>[event code]</em>[<a href="http://subjecteventcrf.id/">subjecteventcrf.id</a>]<em>[subjecteventcrffile.revisionnumber]</em>[<a href="http://edcpipelinefile.id/">edcpipelinefile.id</a>]_[timestamp]_error_log.txt</li>
+</ul>
+</li>
+</ul>
+<h3 id="error-flags-in-the-database">Error Flags in the Database</h3>
+<p>scenario 1: edcpipelinefile.status = completed, but edcpipelinefile.has_error = True</p>
+<ul>
+<li>File is processed and is available in destination bucket quarantined folder, but some errors were generated during the process<ul>
+<li>e.g. can't insert ATRIUID into the DICOM header etc.</li>
+</ul>
+</li>
+</ul>
+<p>scenario 2: edcpipelinefile.status = Failed</p>
+<ul>
+<li>File is not available in the destination bucket quarantined folder, something more seriously wrong during the process</li>
+</ul>
+<h3 id="error-codes-and-their-meaning">Error Codes and their meaning</h3>
+<p>Please refer to  <a href="https://atrihub.atlassian.net/wiki/spaces/AWSPIPE/pages/927367226/Pipeline+Dictionary">Pipeline Dictionary</a></p>
+<p>Q: should I promote error code to database table column? e.g. edcpipelinefileerrorlog.error_code</p>
+<h3 id="error-notification-email">Error Notification Email</h3>
+<p><img alt="" src="https://atrihub.atlassian.net/wiki/download/thumbnails/920256553/image2019-3-22_0-29-26.png?version=1&amp;modificationDate=1553239768323&amp;cacheVersion=1&amp;api=v2&amp;width=580&amp;height=400" /></p>
+<h1 id="relevant-data">Relevant Data</h1>
+<h2 id="atriuid-batch-script-logic">ATRIUID / Batch script logic</h2>
+<p><img alt="" src="https://atrihub.atlassian.net/wiki/download/thumbnails/920256553/IMG_1369.JPG?version=1&amp;modificationDate=1549077947704&amp;cacheVersion=1&amp;api=v2&amp;width=533&amp;height=400" /></p>
+<h2 id="brainstorming-drawing-board">Brainstorming Drawing Board</h2>
+<p><img alt="" src="https://atrihub.atlassian.net/wiki/download/thumbnails/920256553/IMG_1352.JPG?version=1&amp;modificationDate=1547499937854&amp;cacheVersion=1&amp;api=v2&amp;width=533&amp;height=400" /></p>
+<p><a href="https://atrihub.atlassian.net/wiki/download/attachments/920256553/IMG_6233.HEIC?version=1&amp;modificationDate=1547519251926&amp;cacheVersion=1&amp;api=v2"><img alt="" src="https://atrihub.atlassian.net/wiki/s/114275273/6452/6e72b6ef919f435036c01f9329c3844398ba52f1/1000.0.6/_/download/resources/com.atlassian.confluence.plugins.confluence-view-file-macro:view-file-macro-resources/images/placeholder-large-file.png" />IMG_6233.HEIC</a></p>
+<h2 id="trc-amyloid-pet-scan-data-flow">TRC Amyloid PET Scan &amp; Data Flow</h2>
+<p><a href="https://atrihub.atlassian.net/wiki/download/attachments/920256553/TRC_PET_Data_Flow.pdf?version=1&amp;modificationDate=1547497581575&amp;cacheVersion=1&amp;api=v2"><img alt="" src="https://api.media.atlassian.com/file/a01818e9-f241-413d-9e4a-58f8746242ca/image?height=320&amp;client=2c443d3b-214d-4735-8807-9d540fa17755&amp;token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIyYzQ0M2QzYi0yMTRkLTQ3MzUtODgwNy05ZDU0MGZhMTc3NTUiLCJhY2Nlc3MiOnsidXJuOmZpbGVzdG9yZTpmaWxlOmEwMTgxOGU5LWYyNDEtNDEzZC05ZTRhLTU4Zjg3NDYyNDJjYSI6WyJyZWFkIl19LCJleHAiOjE1NTU2MTE0ODYsIm5iZiI6MTU1NTYwODEyNn0.DkS_0J9yNZYtgBB_ysp7Pwzi7zoiLny-6o-8LyfyLVI" /></a><a href="https://atrihub.atlassian.net/wiki/download/attachments/920256553/TRC_PET_Data_Flow.pdf?version=1&amp;modificationDate=1547497581575&amp;cacheVersion=1&amp;api=v2">Edit file</a>
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTgwMTEyMjE5LC0yNzk0NjEyODgsMTMyMT
+k3NjIyNl19
+--></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
