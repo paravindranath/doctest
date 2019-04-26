@@ -1,0 +1,3921 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>AWSImagePipeline.md - DocTest</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">DocTest</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Welcome to MkDocs</a>
+                            </li>
+                            <li class="active">
+                                <a href="./">AWSImagePipeline.md</a>
+                            </li>
+                            <li >
+                                <a href="../Image Pipeline/">Image Pipeline</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../Image Pipeline/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#recently-updated">Recently Updated</a></li>
+        <li class="main "><a href="#how-to-articles">How-to Articles</a></li>
+        <li class="main "><a href="#open-issues-in-jira">Open issues in JIRA</a></li>
+        <li class="main "><a href="#meeting-notes">Meeting notes</a></li>
+            <li><a href="#incomplete-tasks-from-meetings">Incomplete tasks from meetings</a></li>
+            <li><a href="#task-report">Task report</a></li>
+            <li><a href="#all-meeting-notes">All meeting notes</a></li>
+            <li><a href="#2019-01-25-meeting-notes-pipelines">2019-01-25 Meeting notes - Pipelines</a></li>
+            <li><a href="#2019-01-28-meeting-notes-trc-image-pipeline">2019-01-28 Meeting notes - TRC image pipeline</a></li>
+            <li><a href="#2019-01-30-meeting-notes-trc-image-pipeline">2019-01-30 Meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-02-07-meeting-notes-trc-image-pipeline">2019-02-07 Meeting notes - TRC image pipeline</a></li>
+            <li><a href="#2019-02-11-meeting-notes-trc-image-pipeline">2019-02-11 Meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-02-13-meeting-notes-trc-image-pipeline">2019-02-13 Meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-02-20-meeting-notes-trc-image-pipeline">2019-02-20 Meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-02-25-meeting-notes-trc-image-pipeline">2019-02-25 Meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-02-27-meeting-notes-trc-image-pipeline">2019-02-27 meeting notes - TRC Image Pipeline</a></li>
+            <li><a href="#2019-04-03-meeting-notes-internal-meetup-on-processdcm">2019-04-03 - meeting notes - internal meetup on processDCM</a></li>
+        <li class="main "><a href="#product-requirements">Product requirements</a></li>
+            <li><a href="#image-pipeline">Image Pipeline</a></li>
+        <li class="main "><a href="#decision-log">Decision log</a></li>
+            <li><a href="#decisions_8">Decisions</a></li>
+            <li><a href="#edc-file-upload-improvements">EDC File Upload Improvements</a></li>
+            <li><a href="#aws-consultant-suggestions-summary">AWS Consultant Suggestions Summary</a></li>
+            <li><a href="#design-for-unit-testing">Design for unit testing</a></li>
+            <li><a href="#edc-image-pipeline-plugin-model">EDC Image Pipeline Plugin - Model</a></li>
+            <li><a href="#edc-image-pipeline-plugin-api">EDC Image Pipeline Plugin - API</a></li>
+            <li><a href="#image-pipeline-lambda">Image Pipeline - Lambda</a></li>
+            <li><a href="#image-pipeline-step-function">Image Pipeline - Step Function</a></li>
+            <li><a href="#image-pipeline-processdcmpy">Image Pipeline - ProcessDCM.py</a></li>
+            <li><a href="#image-pipeline-batch">Image Pipeline - Batch</a></li>
+            <li><a href="#image-pipeline-parking-lot">Image Pipeline - Parking Lot</a></li>
+        <li class="main "><a href="#how-to-articles_1">How-to articles</a></li>
+            <li><a href="#setup-a-new-image-pipeline">Setup A new Image Pipeline</a></li>
+            <li><a href="#how-to-manually-trigger-image-pipeline-in-step-function">How to manually trigger image pipeline in step function</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>[]{#1 .anchor}</p>
+<p>AWS Pipeline</p>
+<p>AWS Pipeline</p>
+<p>Exported on Apr 11, 2019 5:03 PM</p>
+<h1 id="recently-updated">Recently Updated</h1>
+<ul>
+<li>
+<p><img alt="_scroll_external/other/61561096f0786d2271838563d1301046-731be5b06b7ec3012033a1384ace652aa20b3c704a6d126b55fb16bef2f4df51" src="media/image1.png" />{width="0.5in"
+    height="0.5in"}
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+Ravindranath</a>
+(https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p><a href="#pipeline-dictionary">Pipeline Dictionary</a>updated yesterday at 3:13
+    PM<a href="https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=927367226&amp;selectedPageVersions=27&amp;selectedPageVersions=28">view
+    change</a>
+    (https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=927367226&amp;selectedPageVersions=27&amp;selectedPageVersions=28)</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><img alt="_scroll_external/other/f3c4d0a354f4494d0f0d983c01dc7a97-1e61ddbc78a5e70a976bd122c2dadcd8028b10ee948c7ec170eb5ea0e2f70816" src="media/image2.png" />{width="0.5in"
+    height="0.5in"}
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+(https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="#edc-image-pipeline-plugin---api">EDC Image Pipeline Plugin -
+    API</a>updated Apr 09, 2019<a href="https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=965541910&amp;selectedPageVersions=2&amp;selectedPageVersions=3">view
+    change</a>
+    (https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=965541910&amp;selectedPageVersions=2&amp;selectedPageVersions=3)</p>
+</li>
+<li>
+<p><a href="#image-pipeline---parking-lot">Image Pipeline - Parking Lot</a>updated
+    Apr 08, 2019<a href="https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=967344202&amp;selectedPageVersions=22&amp;selectedPageVersions=23">view
+    change</a>
+    (https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=967344202&amp;selectedPageVersions=22&amp;selectedPageVersions=23)</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><img alt="_scroll_external/other/9ac034177948210d7799e0c32d50265c-a038d8b47e2d6d08c4cde75a21827b6a1aecdfa5ff0dcf3dc120ce570044fb5c" src="media/image3.png" />{width="0.5in"
+    height="0.5in"}
+    (https://atrihub.atlassian.net/wiki/display/\~rkhemka)</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~rkhemka">Rajat Khemka</a>
+(https://atrihub.atlassian.net/wiki/display/\~rkhemka)</p>
+</li>
+<li>
+<p><a href="#image-pipeline---processdcm.py">Image Pipeline -
+    ProcessDCM.py</a>updated Apr 04,
+    2019<a href="https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=965967879&amp;selectedPageVersions=22&amp;selectedPageVersions=23">view
+    change</a>
+    (https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=965967879&amp;selectedPageVersions=22&amp;selectedPageVersions=23)</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><img alt="_scroll_external/other/f3c4d0a354f4494d0f0d983c01dc7a97-1e61ddbc78a5e70a976bd122c2dadcd8028b10ee948c7ec170eb5ea0e2f70816" src="media/image2.png" />{width="0.5in"
+    height="0.5in"}
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+(https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="#image-pipeline-components-and-resources">Image Pipeline Components and
+    Resources</a>updated Apr 03,
+    2019<a href="https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=959873105&amp;selectedPageVersions=4&amp;selectedPageVersions=5">view
+    change</a>
+    (https://atrihub.atlassian.net/wiki/pages/diffpagesbyversion.action?pageId=959873105&amp;selectedPageVersions=4&amp;selectedPageVersions=5)</p>
+</li>
+</ul>
+<h1 id="how-to-articles">How-to Articles</h1>
+<ul>
+<li>
+<p>Page:<a href="#setup-a-new-image-pipeline">Setup A new Image Pipeline</a>(AWS
+    Pipeline)</p>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/label/AWSPIPE/kb-how-to-article">kb-how-to-article</a>
+    (https://atrihub.atlassian.net/wiki/label/AWSPIPE/kb-how-to-article)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/label/AWSPIPE/runbook">runbook</a>
+    (https://atrihub.atlassian.net/wiki/label/AWSPIPE/runbook)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Page:<a href="#how-to-manually-trigger-image-pipeline-in-step-function">How to manually trigger image pipeline in step
+    function</a>(AWS
+    Pipeline)</p>
+<ul>
+<li><a href="https://atrihub.atlassian.net/wiki/label/AWSPIPE/kb-how-to-article">kb-how-to-article</a>
+    (https://atrihub.atlassian.net/wiki/label/AWSPIPE/kb-how-to-article)</li>
+</ul>
+</li>
+</ul>
+<h1 id="open-issues-in-jira">Open issues in JIRA</h1>
+<p>Key                                                                                                                                  T                                                                                                                                                                                                                                                       Created              Updated              Due   Assignee       Status                                                            Resolution</p>
+<hr />
+<p><a href="https://atrihub.atlassian.net/browse/PIPE-58?src=confmacro">PIPE-58</a> (https://atrihub.atlassian.net/browse/PIPE-58?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-58?src=confmacro)   Apr 08, 2019 16:51   Apr 08, 2019 16:51         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> to do </span></strong>         Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-57?src=confmacro">PIPE-57</a> (https://atrihub.atlassian.net/browse/PIPE-57?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-57?src=confmacro)   Apr 05, 2019 01:32   Apr 05, 2019 01:32         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> to do </span></strong>         Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-56?src=confmacro">PIPE-56</a> (https://atrihub.atlassian.net/browse/PIPE-56?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-56?src=confmacro)   Apr 04, 2019 23:52   Apr 04, 2019 23:52         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> to do </span></strong>         Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-55?src=confmacro">PIPE-55</a> (https://atrihub.atlassian.net/browse/PIPE-55?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-55?src=confmacro)   Apr 04, 2019 16:47   Apr 08, 2019 14:11         Unassigned     <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-54?src=confmacro">PIPE-54</a> (https://atrihub.atlassian.net/browse/PIPE-54?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-54?src=confmacro)   Apr 04, 2019 12:47   Apr 04, 2019 12:47         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> to do </span></strong>         Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-53?src=confmacro">PIPE-53</a> (https://atrihub.atlassian.net/browse/PIPE-53?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-53?src=confmacro)   Apr 03, 2019 00:45   Apr 03, 2019 00:47         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-52?src=confmacro">PIPE-52</a> (https://atrihub.atlassian.net/browse/PIPE-52?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-52?src=confmacro)   Apr 03, 2019 00:45   Apr 03, 2019 00:47         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-51?src=confmacro">PIPE-51</a> (https://atrihub.atlassian.net/browse/PIPE-51?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-51?src=confmacro)   Apr 02, 2019 16:28   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-50?src=confmacro">PIPE-50</a> (https://atrihub.atlassian.net/browse/PIPE-50?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-50?src=confmacro)   Apr 02, 2019 16:17   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-49?src=confmacro">PIPE-49</a> (https://atrihub.atlassian.net/browse/PIPE-49?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-49?src=confmacro)   Apr 02, 2019 16:17   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-48?src=confmacro">PIPE-48</a> (https://atrihub.atlassian.net/browse/PIPE-48?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-48?src=confmacro)   Apr 02, 2019 16:17   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-47?src=confmacro">PIPE-47</a> (https://atrihub.atlassian.net/browse/PIPE-47?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-47?src=confmacro)   Apr 02, 2019 16:17   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-46?src=confmacro">PIPE-46</a> (https://atrihub.atlassian.net/browse/PIPE-46?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-46?src=confmacro)   Apr 02, 2019 16:12   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-45?src=confmacro">PIPE-45</a> (https://atrihub.atlassian.net/browse/PIPE-45?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-45?src=confmacro)   Apr 02, 2019 16:07   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-44?src=confmacro">PIPE-44</a> (https://atrihub.atlassian.net/browse/PIPE-44?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-44?src=confmacro)   Apr 01, 2019 15:44   Apr 03, 2019 00:44         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-43?src=confmacro">PIPE-43</a> (https://atrihub.atlassian.net/browse/PIPE-43?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-43?src=confmacro)   Apr 01, 2019 15:44   Apr 03, 2019 00:44         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-42?src=confmacro">PIPE-42</a> (https://atrihub.atlassian.net/browse/PIPE-42?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-42?src=confmacro)   Apr 01, 2019 09:15   Apr 01, 2019 09:16         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-41?src=confmacro">PIPE-41</a> (https://atrihub.atlassian.net/browse/PIPE-41?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-41?src=confmacro)   Apr 01, 2019 09:14   Apr 01, 2019 09:16         Hongmei Qiu    <strong><span style="font-variant:small-caps;"> in progress </span></strong>   Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-40?src=confmacro">PIPE-40</a> (https://atrihub.atlassian.net/browse/PIPE-40?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-40?src=confmacro)   Apr 01, 2019 08:29   Apr 04, 2019 16:50         Unassigned     <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved
+  <a href="https://atrihub.atlassian.net/browse/PIPE-39?src=confmacro">PIPE-39</a> (https://atrihub.atlassian.net/browse/PIPE-39?src=confmacro)   <img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in" height="0.16666666666666666in"} (https://atrihub.atlassian.net/browse/PIPE-39?src=confmacro)   Mar 29, 2019 16:01   Apr 04, 2019 16:50         Rajat Khemka   <strong><span style="font-variant:small-caps;"> in review </span></strong>     Unresolved</p>
+<p>Showing 20 out of <a href="https://atrihub.atlassian.net/secure/IssueNavigator.jspa?reset=true&amp;jqlQuery=project%3DPIPE+AND+status+not+in+%28DONE%2C+RESOLVED%2C+CLOSED%29+&amp;src=confmacro">57
+issues</a>
+(https://atrihub.atlassian.net/secure/IssueNavigator.jspa?reset=true&amp;jqlQuery=project%3DPIPE+AND+status+not+in+%28DONE%2C+RESOLVED%2C+CLOSED%29+&amp;src=confmacro)</p>
+<h1 id="meeting-notes">Meeting notes</h1>
+<p>Create meeting note</p>
+<h2 id="incomplete-tasks-from-meetings">Incomplete tasks from meetings</h2>
+<h2 id="task-report">Task report</h2>
+<p>Looking good, no incomplete tasks.</p>
+<h2 id="all-meeting-notes">All meeting notes</h2>
+<p>Title                                                                                                          Creator                                                                                                                                                                                                            Modified</p>
+<hr />
+<p><a href="#meeting-notes---internal-meetup-on-processdcm">2019-04-03 - meeting notes - internal meetup on processDCM</a>   <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Apr 02, 2019
+  <a href="#meeting-notes---trc-image-pipeline-7">2019-02-27 meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 27, 2019
+  <a href="#meeting-notes---trc-image-pipeline-6">2019-02-25 Meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 25, 2019
+  <a href="#meeting-notes---trc-image-pipeline-5">2019-02-20 Meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 20, 2019
+  <a href="#meeting-notes---trc-image-pipeline-4">2019-02-13 Meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 13, 2019
+  <a href="#meeting-notes---trc-image-pipeline-3">2019-02-11 Meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 11, 2019
+  <a href="#meeting-notes---trc-image-pipeline-2">2019-02-07 Meeting notes - TRC image pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 07, 2019
+  <a href="#meeting-notes---trc-image-pipeline-1">2019-01-30 Meeting notes - TRC Image Pipeline</a>                         <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Feb 05, 2019
+  <a href="#meeting-notes---trc-image-pipeline">2019-01-28 Meeting notes - TRC image pipeline</a>                           <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Jan 30, 2019
+  <a href="#meeting-notes---pipelines">2019-01-25 Meeting notes - Pipelines</a>                                             <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Jan 28, 2019</p>
+<h2 id="2019-01-25-meeting-notes-pipelines">2019-01-25 Meeting notes - Pipelines</h2>
+<h3 id="date">Date</h3>
+<p>25 Jan 2019</p>
+<h3 id="participants">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+    Ravindranath</a>
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania
+    Bruschi</a>
+    (https://atrihub.atlassian.net/wiki/display/\~bruschi)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo
+    Jimenez-Maggiora</a>
+    (https://atrihub.atlassian.net/wiki/display/\~gustavoj)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p>Heather Stratton</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~adamhunt">Adam Hunter</a>
+    (https://atrihub.atlassian.net/wiki/display/\~adamhunt)</p>
+</li>
+</ul>
+<h3 id="goals">Goals</h3>
+<ul>
+<li>
+<p>Project Overview​</p>
+</li>
+<li>
+<p>Timeline​</p>
+</li>
+<li>
+<p>Architecture Overview ​</p>
+</li>
+<li>
+<p>Challenges​</p>
+</li>
+<li>
+<p>Deliverables ​</p>
+</li>
+<li>
+<p>Collaboration – discussion​</p>
+</li>
+<li>
+<p>Next Step – discussion​</p>
+</li>
+<li>
+<p>​</p>
+</li>
+<li>
+<ul>
+<li>Slides: <a href="https://atrihub.app.box.com/file/389348050296">https://atrihub.app.box.com/file/389348050296</a>
+    (https://atrihub.app.box.com/file/389348050296)</li>
+</ul>
+</li>
+</ul>
+<h3 id="discussion-topics">Discussion topics</h3>
+<p>Time   Item                                                              Presenter   Notes</p>
+<hr />
+<pre><code>     Emil suggested use Glue to retrieve and process files in chunks               note for developers: look into this approach in phase 2
+     Emil suggested SFTP                                                           &lt;https://aws.amazon.com/sftp/&gt; (https://aws.amazon.com/sftp/)
+     vzip/ Snappy                                                                  
+     Large file upload GUI                                                         JS components, multi-part upload
+</code></pre>
+<h3 id="action-items">Action items</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    &gt; (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) create IAM
+    &gt; readonly account for Emil on sandbox</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    &gt; (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) share
+    &gt; sample phantom files with Emil</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    &gt; (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) send out
+    &gt; doodle poll for weekly touch base meetings</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    &gt; (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) create
+    &gt; slack space and invite Emil to it</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    &gt; (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) share Emil
+    &gt; Github repo with lambda code</p>
+</li>
+</ul>
+<h3 id="decisions">Decisions</h3>
+<h2 id="2019-01-28-meeting-notes-trc-image-pipeline">2019-01-28 Meeting notes - TRC image pipeline</h2>
+<h3 id="date_1">Date</h3>
+<p>28 Jan 2019</p>
+<h3 id="participants_1">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+    Ravindranath</a>
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p>Tom Christensen</p>
+</li>
+</ul>
+<h3 id="goals_1">Goals</h3>
+<ul>
+<li>Meeting recording: <a href="https://atrihub.app.box.com/folder/65237095772">https://atrihub.app.box.com/folder/65237095772</a>
+    (https://atrihub.app.box.com/folder/65237095772)</li>
+</ul>
+<h3 id="discussion-topics_1">Discussion topics</h3>
+<hr />
+<p>Time   Item                                                                                                          Presenter   Notes</p>
+<hr />
+<pre><code>                                                                                                                               -
+
+     AWS Batch: Job Role IAM for S3 access                                                                                     solved: create a role with s3 access policy → ecstatics → Tasks (&lt;https://aws.amazon.com/blogs/compute/creating-a-simple-fetch-and-run-aws-batch-job/&gt; (https://aws.amazon.com/blogs/compute/creating-a-simple-fetch-and-run-aws-batch-job/))
+
+     AWS Batch: environment, queue, definition - should we create them through lambda or feed them as parameters               (Emil) feed them. Do not create them in lambda - no benefit, longer
+
+     What does multi-node configuration do                                                                                     for array jobs. For jobs that requires to run parallel execution.
+
+     What are node properties? Can we use it to by pass docker container for execution                                         node ami is just to run ecstatics and docker container. Docker container can be used to work with node ami only at kernel level.
+
+                                                                                                                               Cannot bypass container. for running and scaling only with AMIs use SQS → scale ec2. This is required when more control is required.
+
+     Debug RUNNABLE state is batch.                                                                                            Can be done ssh’ing into a single node running job instance, and checking the ecstatics agent.
+
+                                                                                                                               ECS agent can be customized to write docker logs. Have to create our own log driver
+
+     What happens when we kill the ecs spun instance                                                                           Exact relation not known. waits and runs the available/next available tasks.
+
+     VPC and subnets.                                                                                                          Public VPC and public subnets in private VPC works.
+
+                                                                                                                               private subnets keep the jobs in runnable state.
+
+                                                                                                                               (emil) create an endpoint letting ec2 access to ecs - not working (have to check again recreating the ecs cluster - probably it had old configurations)
+
+     custom AMI                                                                                                                have to include ecstatics agent.
+</code></pre>
+<hr />
+<h3 id="action-items_1">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_1">Decisions</h3>
+<h2 id="2019-01-30-meeting-notes-trc-image-pipeline">2019-01-30 Meeting notes - TRC Image Pipeline</h2>
+<h3 id="date_2">Date</h3>
+<p>30 Jan 2019</p>
+<h3 id="participants_2">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+    Ravindranath</a>
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p>Tom Christensen</p>
+</li>
+</ul>
+<h3 id="goals_2">Goals</h3>
+<ul>
+<li>Meeting recording:
+    <a href="https://atrihub.box.com/s/efczd3bqe0n49osxochwfwzc3aivp4s0">https://atrihub.box.com/s/efczd3bqe0n49osxochwfwzc3aivp4s0</a>
+    (https://atrihub.box.com/s/efczd3bqe0n49osxochwfwzc3aivp4s0)</li>
+</ul>
+<h3 id="discussion-topics-next-meeting">Discussion topics - next meeting</h3>
+<ul>
+<li>
+<p>Show status - demo</p>
+<ul>
+<li>
+<p>Best practice: where to store batch configuration variables
+    (e.g. computing environment job queue and job definition)</p>
+<ul>
+<li>
+<p><strong>Emil suggestion:</strong></p>
+<ul>
+<li>
+<p>token: parameter store</p>
+</li>
+<li>
+<p>db password: secret manager</p>
+</li>
+<li>
+<p>for variables pass to next lambda function, e.g.
+    computing environment, just definite those variables in
+    each lambda function (so those info won’t be go through
+    function call via network)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>1 study portal per step function + 1st lambda function</p>
+</li>
+<li>
+<p>store configurations in 1st lambda function</p>
+</li>
+<li>
+<p>Any concerns on: passing API token through lambda to batch job
+    as an update to job definition?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>batch</p>
+<ul>
+<li>
+<p>passing parameters to batch</p>
+<ul>
+<li>override job definition is ok for same type of pipeline</li>
+</ul>
+</li>
+<li>
+<p>best practice to update batch job submission</p>
+<ul>
+<li>e.g. file path, file name different for each s3 object that
+    triggers the job run</li>
+</ul>
+</li>
+<li>
+<p>batch error output to step function</p>
+<ul>
+<li>
+<p>cloudwatch logs, error text (grabs from log stream)</p>
+<ul>
+<li>what goes into cloudwatch logs? stdout and stderr …</li>
+</ul>
+</li>
+<li>
+<p>aws batch return code makes its way back to step functionalt</p>
+</li>
+<li>
+<p>alternatives: s3 log, cloudwatch insights (still needs to
+    split stdout and stderr)</p>
+</li>
+<li>
+<p>Emil recommended:~~mime approach, modify ecs agent to write
+    to separate logs (won’t work for our case)~~</p>
+<ul>
+<li>
+<p>ecs environment variable: which log streams</p>
+</li>
+<li>
+<p>error → s3 → cloudwatch log streams</p>
+</li>
+<li>
+<p><strong>todo: Emil share your example code with us</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>How to raise errors to next step function from batch (repeated
+    from last question)</p>
+<ul>
+<li>
+<p>best practice - combine step 2 (process image) and step 3
+    (write metadata)? other options</p>
+<ul>
+<li>modify ECS agent</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Templates/scripts: log the cost and duration matrix (Emil)</p>
+<ul>
+<li><strong>TBD</strong></li>
+</ul>
+</li>
+<li>
+<p>Lambda CI/CD (serverless repository)</p>
+<ul>
+<li>
+<p>Emil look into seamless flow:</p>
+<ul>
+<li><strong>TODO: share link jetbridge (through slack)</strong></li>
+</ul>
+</li>
+<li>
+<p>restrictions:</p>
+<ul>
+<li>
+<p>total amount of code (layer will count toward it)</p>
+</li>
+<li>
+<p>space (/tmp, /opt)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Bastion Host: <a href="https://atrihub.atlassian.net/wiki/spaces/APST2/pages/722272320/Setup+Bastion+Host+to+SSH+into+EC2+instances">Setup Bastion Host to SSH into EC2
+    instances</a>
+    (https://atrihub.atlassian.net/wiki/spaces/APST2/pages/722272320/Setup+Bastion+Host+to+SSH+into+EC2+instances)</p>
+</li>
+<li>
+<p>AWS batch computing environments VPC with private subnet NAT creates
+    issue</p>
+<ul>
+<li>TBD: push this back to March</li>
+</ul>
+</li>
+</ul>
+<h3 id="action-items_2">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_2">Decisions</h3>
+<h2 id="2019-02-07-meeting-notes-trc-image-pipeline">2019-02-07 Meeting notes - TRC image pipeline</h2>
+<h3 id="date_3">Date</h3>
+<p>07 Feb 2019</p>
+<h3 id="participants_3">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+    Ravindranath</a>
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+</ul>
+<h3 id="goals_3">Goals</h3>
+<ul>
+<li>
+<p>Lambda</p>
+<ul>
+<li>
+<p>lambda layer</p>
+</li>
+<li>
+<p>Lambda CI/CD</p>
+<ul>
+<li>
+<p>serverless repository approach (TODO: Emil will look into
+    this later)</p>
+<ul>
+<li>private</li>
+</ul>
+</li>
+<li>
+<p>test lambda functions</p>
+<ul>
+<li>
+<p>step function local (they have a docker) - java
+    application</p>
+<p><a href="https://docs.aws.amazon.com/step-functions/latest/dg/sfn-local.html">https://docs.aws.amazon.com/step-functions/latest/dg/sfn-local.html</a>
+(https://docs.aws.amazon.com/step-functions/latest/dg/sfn-local.html)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>AWS Vault - for credentials</p>
+<ul>
+<li><a href="https://github.com/99designs/aws-vault">https://github.com/99designs/aws-vault</a>
+    (https://github.com/99designs/aws-vault)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>cost and performance</p>
+<ul>
+<li>
+<p>status:</p>
+<ul>
+<li>
+<p>cost and duration scripts (lambda, batch, etc.) (TODO: Emil
+    will look into this later)</p>
+</li>
+<li>
+<p>ecs agents (github fork) - stream script/container specific
+    logs to CloudWatch - Emil: too overkill - just split the
+    streams in our script into different s3 logs</p>
+<ul>
+<li>
+<p>mime objects - multi-part</p>
+</li>
+<li>
+<p>s3 logs</p>
+</li>
+<li>
+<p>TODO: Emil will provide reference links to ecs agents
+    fork (public github) just for future reference (looking
+    for older version)</p>
+<ul>
+<li><a href="https://github.com/elerch/amazon-ecs-agent/tree/proxy_container">https://github.com/elerch/amazon-ecs-agent/tree/proxy_container</a>
+    (https://github.com/elerch/amazon-ecs-agent/tree/proxy_container)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Pipeline CI/CD (CloudFormation)</p>
+<ul>
+<li>bring everything together: step function, lambda, batch, docker</li>
+</ul>
+</li>
+<li>
+<p>Security (move this item to next meeting)</p>
+<ul>
+<li>Batch VPC private subnet with NAT - investigation (if time
+    permits)</li>
+</ul>
+</li>
+<li>
+<p>Emil feedback on build and push script for docker</p>
+<ul>
+<li><a href="https://github.com/atrihub/AWS-Deployment/issues/48">https://github.com/atrihub/AWS-Deployment/issues/48</a>
+    (https://github.com/atrihub/AWS-Deployment/issues/48)</li>
+</ul>
+</li>
+</ul>
+<h3 id="discussion-topics_2">Discussion topics</h3>
+<p>Time   Item   Presenter   Notes</p>
+<hr />
+<pre><code>                        -
+</code></pre>
+<h3 id="action-items_3">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_3">Decisions</h3>
+<h2 id="2019-02-11-meeting-notes-trc-image-pipeline">2019-02-11 Meeting notes - TRC Image Pipeline</h2>
+<h3 id="date_4">Date</h3>
+<p>11 Feb 2019</p>
+<h3 id="participants_4">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir
+    Kavatkar</a>
+    (https://atrihub.atlassian.net/wiki/display/\~kavatkar)</p>
+</li>
+</ul>
+<h3 id="goals_4">Goals</h3>
+<ul>
+<li>
+<p>file upload: aws sdk file upload</p>
+<ul>
+<li>
+<p>GUI → API → django → boto3</p>
+</li>
+<li>
+<p>aws SDK - how to setup so the file can be uploaded directly to
+    s3, and the hand off (key etc) is secure and light weight</p>
+</li>
+</ul>
+</li>
+<li>
+<p>can CloudTrail trigger on dynamic s3 prefix?</p>
+</li>
+<li>
+<p>CloudTrail triggered step function, can job execution name be
+    configured?</p>
+</li>
+<li>
+<p>Batch job runs in separate environments?</p>
+</li>
+<li>
+<p>Batch job runnable status</p>
+<ul>
+<li>
+<p>what caused this?</p>
+</li>
+<li>
+<p>related to configuration?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Step function: Wait30Seconds</p>
+<ul>
+<li>stopping point</li>
+</ul>
+</li>
+<li>
+<p><a href="#setup-a-new-image-pipeline">Setup TRC Image Pipeline</a></p>
+</li>
+<li>
+<p>logs: which is easier to parse through</p>
+<ul>
+<li>
+<p>cloudwatch - metric filter (recommended)</p>
+</li>
+<li>
+<p>s3</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="discussion-topics_3">Discussion topics</h3>
+<p>Time   Item   Presenter   Notes</p>
+<hr />
+<pre><code>                        -
+</code></pre>
+<h3 id="action-items_4">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_4">Decisions</h3>
+<h2 id="2019-02-13-meeting-notes-trc-image-pipeline">2019-02-13 Meeting notes - TRC Image Pipeline</h2>
+<h3 id="date_5">Date</h3>
+<p>13 Feb 2019</p>
+<h3 id="participants_5">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir
+    Kavatkar</a>
+    (https://atrihub.atlassian.net/wiki/display/\~kavatkar)</p>
+</li>
+</ul>
+<h3 id="goals_5">Goals</h3>
+<ul>
+<li>
+<p><a href="#edc-file-upload-improvements">EDC File Upload Improvements</a>
+    (timeline for this pushed to Q2/Q3)</p>
+</li>
+<li>
+<p>Runbook:</p>
+<ul>
+<li><a href="https://atrihub.app.box.com/file/399829398942">https://atrihub.app.box.com/file/399829398942</a>
+    (https://atrihub.app.box.com/file/399829398942)</li>
+</ul>
+</li>
+<li>
+<p>Batch Compute Environment: switch to private subnet with NAT</p>
+<ul>
+<li><a href="https://aws.amazon.com/security/security-bulletins/AWS-2019-002/">https://aws.amazon.com/security/security-bulletins/AWS-2019-002/</a>
+    (https://aws.amazon.com/security/security-bulletins/AWS-2019-002/)</li>
+</ul>
+</li>
+<li>
+<p>MIME multi-part generation and parsing (overkill)</p>
+<ul>
+<li><a href="https://github.com/broadinstitute/cromwell/blob/958411830ff100b705e27e0a4f2f09c86e02c705/supportedBackends/aws/src/main/scala/cromwell/backend/impl/aws/AwsBatchJob.scala">https://github.com/broadinstitute/cromwell/blob/958411830ff100b705e27e0a4f2f09c86e02c705/supportedBackends/aws/src/main/scala/cromwell/backend/impl/aws/AwsBatchJob.scala</a>
+    (https://github.com/broadinstitute/cromwell/blob/958411830ff100b705e27e0a4f2f09c86e02c705/supportedBackends/aws/src/main/scala/cromwell/backend/impl/aws/AwsBatchJob.scala)</li>
+</ul>
+</li>
+</ul>
+<p>curl/default/bab9ebde-71a6-4a27-8d6e-0092e39c3140\
+\^\^\^ \^\^\^\^ \^\^\^\^\
+| | ECS Task ID\
+| ECS container name\
+|\
+|\
+job definitioncurl -s \$ECS_CONTAINER_METADATA_URI; env{\
+"DockerId":
+"dcc704d12b1dee27cf3d0ddc78d7a8ed6cb5bf09cc8e254d806928a71a5055e6",\
+"Name": "default",\
+"DockerName": "ecs-curl-1-default-a6f8d3ab8c8b8281e301",\
+"Image": "appropriate/curl",\
+"ImageID":
+"sha256:d37e1f717dc01df3a838955d29a149c569352c0991b1d7cf11b4ebca8c6c7f55",\
+"Labels": {\
+"com.amazonaws.ecs.cluster":
+"optimal_Batch_320ef3e9-690b-3be6-9009-62700d07ea28",\
+"com.amazonaws.ecs.container-name": "default",\
+"com.amazonaws.ecs.task-arn":
+"arn:aws:ecs:us-east-2:931443760666:task/bab9ebde-71a6-4a27-8d6e-0092e39c3140",\
+"com.amazonaws.ecs.task-definition-family": "curl",\
+"com.amazonaws.ecs.task-definition-version": "1"\
+},\
+"DesiredStatus": "RUNNING",\
+"KnownStatus": "RUNNING",\
+"Limits": {\
+"CPU": 1024,\
+"Memory": 128\
+},\
+"CreatedAt": "2019-02-13T21:34:24.353330197Z",\
+"StartedAt": "2019-02-13T21:34:24.834316277Z",\
+"Type": "NORMAL"\
+}SHLVL=2\
+HOME=/root\
+AWS_CONTAINER_CREDENTIALS_RELATIVE_URI=/v2/credentials/db4f5274-24e8-4fa4-ac51-2282a2286998\
+AWS_EXECUTION_ENV=AWS_ECS_EC2\
+AWS_BATCH_JOB_ID=2c517fa4-e5cd-4e8d-90b3-0fd7efcb24f5\
+AWS_BATCH_JQ_NAME=optimal\
+ECS_CONTAINER_METADATA_URI=<a href="http://169.254.170.2/v3/f3bf3225-88ea-4de2-a195-f285d1af1b41">http://169.254.170.2/v3/f3bf3225-88ea-4de2-a195-f285d1af1b41</a>
+(http://169.254.170.2/v3/f3bf3225-88ea-4de2-a195-f285d1af1b41)\
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\
+AWS_BATCH_JOB_ATTEMPT=1\
+PWD=/\
+AWS_BATCH_CE_NAME=optimal</p>
+<h3 id="discussion-topics_4">Discussion topics</h3>
+<p>Time   Item   Presenter   Notes</p>
+<hr />
+<pre><code>                        -
+</code></pre>
+<h3 id="action-items_5">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_5">Decisions</h3>
+<h2 id="2019-02-20-meeting-notes-trc-image-pipeline">2019-02-20 Meeting notes - TRC Image Pipeline</h2>
+<h3 id="date_6">Date</h3>
+<p>20 Feb 2019</p>
+<h3 id="participants_6">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir
+    Kavatkar</a>
+    (https://atrihub.atlassian.net/wiki/display/\~kavatkar)</p>
+</li>
+</ul>
+<h3 id="goals_6">Goals</h3>
+<ul>
+<li>
+<p>cost report</p>
+<ul>
+<li>
+<p>study</p>
+</li>
+<li>
+<p>service</p>
+</li>
+<li>
+<p>step/lambda</p>
+</li>
+</ul>
+</li>
+<li>
+<p>encryption/HIPAA</p>
+<ul>
+<li>
+<p>revisit KMS key management (re-cycle, DR)</p>
+</li>
+<li>
+<p>Batch computing environment</p>
+<ul>
+<li><a href="https://aws.amazon.com/about-aws/whats-new/2017/09/aws-batch-is-now-a-hipaa-eligible-service/">https://aws.amazon.com/about-aws/whats-new/2017/09/aws-batch-is-now-a-hipaa-eligible-service/</a>
+    (https://aws.amazon.com/about-aws/whats-new/2017/09/aws-batch-is-now-a-hipaa-eligible-service/)</li>
+</ul>
+</li>
+<li>
+<p>Step Function + Lambda</p>
+</li>
+</ul>
+</li>
+<li>
+<p>CloudFormation, CI/CD - best practices</p>
+<ul>
+<li>
+<p>1 per study image pipeline? or</p>
+</li>
+<li>
+<p>1 per section?</p>
+</li>
+<li>
+<p>walk through
+    <a href="https://atrihub.app.box.com/file/399829398942">runbook</a>
+    (https://atrihub.app.box.com/file/399829398942), and identify
+    what can be automated?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Test - step functions/lambda</p>
+<ul>
+<li>
+<p>Github → Travis CI</p>
+</li>
+<li>
+<p>Github → CodePipeline/CodeBuild</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="discussion-topics_5">Discussion topics</h3>
+<p>Time   Item   Presenter   Notes</p>
+<hr />
+<pre><code>                        -
+</code></pre>
+<h3 id="action-items_6">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_6">Decisions</h3>
+<h2 id="2019-02-25-meeting-notes-trc-image-pipeline">2019-02-25 Meeting notes - TRC Image Pipeline</h2>
+<p>Attendees</p>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir
+    Kavatkar</a>
+    (https://atrihub.atlassian.net/wiki/display/\~kavatkar)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~emilerch">Emil Lerch</a>
+    (https://atrihub.atlassian.net/wiki/display/\~emilerch)</p>
+</li>
+</ul>
+<p>Agenda</p>
+<p>CloudFormation</p>
+<ul>
+<li>
+<p>Step function execution name: how to customize?</p>
+</li>
+<li>
+<p>Emil was pointing to the linux version used in the batch compute
+    environment to test the private VPC in batch. We are currently using
+    the managed amazon AMI. In order to do what Emil suggested I think
+    we would need to create a custom AMI to run the docker image.</p>
+</li>
+<li>
+<p>CloudTrail was suggested here:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html">https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html</a>
+    (https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html)</li>
+</ul>
+</li>
+<li>
+<p>S3 vs CloudWatch → both triggers lambda function</p>
+<ul>
+<li>
+<p>Q: when is it useful to trigger step function directly?</p>
+</li>
+<li>
+<p>Q: S3 vs CloudWatch for logs?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Lambda trigger function → step function, example?</p>
+</li>
+<li>
+<p>add tag to IAM role, not supported in CloudFormation?</p>
+<ul>
+<li>
+<p>solution currently used: aws cli</p>
+</li>
+<li>
+<p>CloudFormation source tag:
+    <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html</a>
+    (https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>An error occurred (ValidationError) when calling the UpdateStack
+    operation: No updates are to be performed.</p>
+<ul>
+<li>how to detect that?</li>
+</ul>
+</li>
+<li>
+<p>CloudFormation drift status</p>
+</li>
+</ul>
+<h2 id="2019-02-27-meeting-notes-trc-image-pipeline">2019-02-27 meeting notes - TRC Image Pipeline</h2>
+<ul>
+<li>
+<p>Compute Environment: use m3.medium/m5.large instead of optimal,
+    consulted with Emil regarding our use case</p>
+</li>
+<li>
+<p>lambda testing locally - docker container (Github)</p>
+<ul>
+<li>
+<p>without the 15 min timeout</p>
+</li>
+<li>
+<p>load lambda through ECR - step functions (ECS cluster, docker
+    container) → get ECS output with location to CloudWatch log →
+    checkout outputs in the CloudWatch logs</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2019-04-03-meeting-notes-internal-meetup-on-processdcm">2019-04-03 - meeting notes - internal meetup on processDCM</h2>
+<h3 id="date_7">Date</h3>
+<p>02 Apr 2019</p>
+<h3 id="participants_7">Participants</h3>
+<ul>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a>
+    (https://atrihub.atlassian.net/wiki/display/\~hongmeiq)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep
+    Ravindranath</a>
+    (https://atrihub.atlassian.net/wiki/display/\~paravindranath)</p>
+</li>
+<li>
+<p><a href="https://atrihub.atlassian.net/wiki/display/~rkhemka">Rajat Khemka</a>
+    (https://atrihub.atlassian.net/wiki/display/\~rkhemka)</p>
+</li>
+</ul>
+<h3 id="goals_7">Goals</h3>
+<ul>
+<li>
+<p>Travis CI</p>
+</li>
+<li>
+<p>drop error_log api call, replace with proper print statement</p>
+</li>
+<li>
+<p>introduce ErrorMessage class with error codes: <a href="#pipeline-dictionary">Pipeline
+    Dictionary</a></p>
+</li>
+</ul>
+<h3 id="discussion-topics_6">Discussion topics</h3>
+<p>Time   Item   Presenter   Notes</p>
+<hr />
+<pre><code>                        -
+</code></pre>
+<h3 id="action-items_7">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="decisions_7">Decisions</h3>
+<h1 id="product-requirements">Product requirements</h1>
+<p>Create product requirement</p>
+<p>Title</p>
+<hr />
+<p>No content found.</p>
+<h2 id="image-pipeline">Image Pipeline</h2>
+<p>Status         <strong><span style="font-variant:small-caps;"> not started </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a> (https://atrihub.atlassian.net/wiki/display/\~bruschi), <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver       <a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo Jimenez-Maggiora</a> (https://atrihub.atlassian.net/wiki/display/\~gustavoj)
+  Contributors   <a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a> (https://atrihub.atlassian.net/wiki/display/\~bruschi), <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq), <a href="https://atrihub.atlassian.net/wiki/display/~jiashins">Jia-Shing So</a> (https://atrihub.atlassian.net/wiki/display/\~jiashins)
+  Informed       <a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a> (https://atrihub.atlassian.net/wiki/display/\~paravindranath)
+  Due date       18 Jan 2019 
+  Outcome        </p>
+<p>note: subject and participant are interchangeable, Record ID =
+subjecteventcrf.id, upload form name = ddcrf.name, upload field name =
+ddfile.name</p>
+<h3 id="background">Background</h3>
+<h4 id="objective">Objective</h4>
+<p>Design and create a pipeline that synchronizes image files between two
+s3 buckets: EDC source bucket and image bucket.  Notify all stakeholders
+when new image files are available in the image bucket 'quarantine'
+folder.  Track the transaction logs in the EDC database.</p>
+<p>The pipeline should be triggered manually on a specific file or set of
+files.</p>
+<h5 id="edc-source-bucket">EDC source bucket</h5>
+<p>Image file are uploaded by the EDC system users via the file uploader
+widget and stored in the EDC source bucket.</p>
+<ul>
+<li>
+<p>bucket name: atri-edc-trc-production-<em>[aws account ID]</em></p>
+</li>
+<li>
+<p>source folder: subjecteventcrffile</p>
+</li>
+<li>
+<p>file path:
+    subjecteventcrffile/<em>[subject.id]</em>/<em>[subjecteventcrf.id]</em>/<em>[ddfile.name]</em>/</p>
+</li>
+<li>
+<p>file name:  file version code + file extension</p>
+</li>
+</ul>
+<h5 id="image-destination-bucket">Image destination bucket</h5>
+<p>Image files in the destination bucket will be made available to
+collaborators (e.g. labs) for further process.</p>
+<ul>
+<li>
+<p>bucket name: atri-edc-trc-production-img-<em>[aws account ID]</em></p>
+</li>
+<li>
+<p>destination folder: quarantine</p>
+</li>
+<li>
+<p>file path: quarantine/[ddcrf.name][ddfile.name]/</p>
+</li>
+<li>
+<p>file name: [ddcrf.name]_[ddfile.name]_[participant
+    code]_[event
+    code]_[subjecteventcrf.id]_[subjecteventcrffile.revisionnumber]_[edcpipelinefile.id]_[timestamp] +
+    file extension</p>
+<ul>
+<li>
+<p>note: strip out any whitespace</p>
+</li>
+<li>
+<p>timestamp</p>
+<ul>
+<li>
+<p>Q: timestamp when file is uploaded to source bucket?
+    destination bucket?</p>
+<ul>
+<li>when the file is first uploaded into the quarantine
+    folder (edcpipelinefile.ts_create)</li>
+</ul>
+</li>
+<li>
+<p>format: YYYYMMDD_HHMMSS</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="brainstorming">Brainstorming</h3>
+<h4 id="design">Design</h4>
+<h5 id="flow">Flow</h5>
+<p><img alt="_scroll_external/attachments/trc-image-pipeline-flow-1-xml-6557bfc18fddcd31215d3cf324071051a3b47ed5985c658059a2c018ee301716.png" src="media/image5.png" />{width="4.677083333333333in"
+height="2.40625in"}</p>
+<p><strong>Q: should we suggest to add an unquarantine folder? to keep quarantine
+as read only for users? (depends on whether the SFTP wrapper can handle
+folder level permissions)</strong></p>
+<h5 id="track">Track</h5>
+<p>Track the following information in the EDC database:</p>
+<ul>
+<li>
+<p>subjecteventcrffile.id</p>
+</li>
+<li>
+<p>filepath - file path in the destination s3 bucket</p>
+</li>
+<li>
+<p>filename - file name in the destination s3 bucket</p>
+</li>
+<li>
+<p>FileID - unqiue ID for each image file transferred to the
+    destination folder</p>
+<ul>
+<li><strong>Q: can we use SubjectEventCrfFile.id as the FileID?</strong></li>
+</ul>
+</li>
+<li>
+<p>studyUID<strong>: </strong>DICOM HEADER  (0020,000D) Unique identifier for the
+    Study.</p>
+</li>
+<li>
+<p>serieUID<strong>:</strong> DICOM HEADER  (0020,000E) Unique identifier of the
+    Series.</p>
+</li>
+<li>
+<p>serienum<strong>: </strong>DICOM HEADER (0020,0011) A number that identifies this
+    Series.</p>
+</li>
+<li>
+<p>ScanID - a unique combination of studyUID and serieUID for each
+    fileID</p>
+</li>
+<li>
+<p>ATRIUID - Uniqeue ID store in DICOM header to identify the image
+    set: [fileID].[scanID]</p>
+</li>
+</ul>
+<p>Track the following information in a log file (s3 bucket - <strong>where?</strong>):</p>
+<ul>
+<li>
+<p>execution error</p>
+</li>
+<li>
+<p>execution result</p>
+</li>
+</ul>
+<h5 id="notification">Notification</h5>
+<h6 id="type-of-users">Type of users</h6>
+<ul>
+<li>
+<p>pipeline user: labs who reviews and process the image files when
+    they are available in the quarantine folder</p>
+</li>
+<li>
+<p>admin user: developers of the image pipeline</p>
+</li>
+</ul>
+<h6 id="type-of-notifications">Type of notifications</h6>
+<ul>
+<li>
+<p>for pipeline users: a digest report runs [nightly|configurable
+    schedule]</p>
+<ul>
+<li>
+<p>create a mailing list: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;">&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;</a>
+    (mailto:trc-images-l@atrihub.io)</p>
+</li>
+<li>
+<p>report includes a list of new files made available to the
+    quarantine folder</p>
+</li>
+<li>
+<p>report includes count of new files, count of files failed to be
+    transferred/processed</p>
+</li>
+</ul>
+</li>
+<li>
+<p>for admin users: error logs (immediately after execution), success
+    logs (<strong>immediately? on a schedule?</strong>)</p>
+<ul>
+<li>create a mailing list: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#97;&#100;&#109;&#105;&#110;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;">&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#97;&#100;&#109;&#105;&#110;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;</a>
+    (mailto:trc-images-admin-l@atrihub.io)</li>
+</ul>
+</li>
+<li>
+<p>Q: do people need to be notified when new files uploaded to the
+    quarantine folder?</p>
+</li>
+</ul>
+<h4 id="implementation">Implementation</h4>
+<h5 id="aws-edc-rds-read-replica">(AWS) EDC RDS read replica</h5>
+<ul>
+<li>
+<p>Create a read only replica for the EDC database, so the pipeline can
+    find subject, crf information during the transfer</p>
+<ul>
+<li><strong>Q: what's the delay between real database and the replica?
+    (trigger wait time depends on this response)</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="database">Database</h5>
+<p>File information tracked in the database tables.</p>
+<h6 id="pipelineedcpipeline">Pipeline.EDCPipeline</h6>
+<p>register each pipeline (e.g. pipeline for image file, pipeline for audio
+files, etc.</p>
+<p>Field     </p>
+<hr />
+<p>ID      <br />
+  Code    <br />
+  Label   <br />
+  DDFiles   </p>
+<h6 id="pipelineedcpipelinefile">pipeline.EDCPipelineFile</h6>
+<p>Field Name               </p>
+<hr />
+<p>ID                     <br />
+  EDCPipeline.id         <br />
+  SubjectEventCrfFile.id <br />
+  file_name             <br />
+  Status                   Started, In Progress, Completed, Failed
+  has_error               T/F</p>
+<p>[]{#scroll-bookmark-93 .anchor}~~\
+~~</p>
+<h6 id="pipelineedcpipelinefiledicom">pipeline.EDCPipelineFileDicom</h6>
+<p>Field Name</p>
+<hr />
+<p>ID
+  EDCPipelineFile.id
+  ATRIUID
+  studyUID
+  serieUID
+  serienum
+  number_of_instances</p>
+<h5 id="api">API</h5>
+<p>/pipeline/edcpipeline/file</p>
+<hr />
+<blockquote>
+<p>input:</p>
+<p>{</p>
+<p>pipeline_code: xxx</p>
+<p>subject_event_crf_file_id: xxx</p>
+<p>*edc_pipieline_file_id: xxx (required <strong>for</strong> update)</p>
+<p>}</p>
+<p>output:</p>
+<p>{</p>
+<p>success: T/F</p>
+<p>error_code: reference dictionary (only show <strong>if</strong> success is F)</p>
+<p>error: xxxx (only show <strong>if</strong> success is F)</p>
+<p>data: {"edc_pipeline_file: object}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<p>/pipeline/edcpipeline/file/dicom/add_scan_info</p>
+<ul>
+<li>
+<p>post</p>
+<ul>
+<li>request body (json)</li>
+</ul>
+</li>
+</ul>
+<hr />
+<blockquote>
+<p>input:</p>
+<p>{</p>
+<p>pipeline_code: xxx,</p>
+<p>subject_event_crf_file_id: xxx,</p>
+<p>edc_pipieline_file_id: xxxx</p>
+<p>scans:[</p>
+<p>{</p>
+<p>study_uid: xxx,</p>
+<p>series: [</p>
+<p>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</p>
+<p>{series_uid: blah, series_number: halb, number_of_instance: 123},</p>
+<p>...</p>
+<p>]</p>
+<p>},</p>
+<p>{</p>
+<p>study_uid: xxx,</p>
+<p>series: [</p>
+<p>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</p>
+<p>{series_uid: blah, series_number: halb, number_of_instance: 123}, ...</p>
+<p>]</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<hr />
+<blockquote>
+<p>output:</p>
+<p>{</p>
+<p>"success": <strong>true</strong>,</p>
+<p>"error_code": reference dictionary (only show <strong>if</strong> success is F)</p>
+<p>"error": xxxx (only show <strong>if</strong> success is F)</p>
+<p>"data":</p>
+<p>{</p>
+<p>edc_pipeline_file_id: 123,</p>
+<p>pipeline_code: xxx,</p>
+<p>subject_event_crf_file_id: xxx,</p>
+<p>scans: [</p>
+<p>{</p>
+<p>"study_uid": xxx,</p>
+<p>"series": [</p>
+<p>{"series_uid": aaa, "atri_uid": yyy},</p>
+<p>{"series_uid": aaa, "atri_uid": ddd},</p>
+<p>...</p>
+<p>]</p>
+<p>},</p>
+<p>{</p>
+<p>"studyuid": xxx,</p>
+<p>"series": [</p>
+<p>{"series_uid": aaa, "atri_uid": yyy},</p>
+<p>{"series_uid": aaa, "atri_uid": ddd},</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<h5 id="mailing-list">Mailing List</h5>
+<p>Study specific</p>
+<ul>
+<li>
+<p><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;">&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;</a> (mailto:trc-images-l@atrihub.io) - for
+    users (e.g. labs)</p>
+</li>
+<li>
+<p><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#97;&#100;&#109;&#105;&#110;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;">&#116;&#114;&#99;&#45;&#105;&#109;&#97;&#103;&#101;&#115;&#45;&#97;&#100;&#109;&#105;&#110;&#45;&#108;&#64;&#97;&#116;&#114;&#105;&#104;&#117;&#98;&#46;&#105;&#111;</a>
+    (mailto:trc-images-admin-l@atrihub.io) - for admins</p>
+</li>
+</ul>
+<h5 id="aws-s3-bucket-temporary">(AWS) S3 bucket - temporary</h5>
+<ul>
+<li>
+<p>create a temporary s3 bucket used by the step function for file
+    processing</p>
+</li>
+<li>
+<p>bucket name: atri-edc-trc-production-img-tmp-[AWS account ID]</p>
+</li>
+</ul>
+<h5 id="aws-step-function">(AWS) Step Function</h5>
+<ul>
+<li>
+<p>triggered when a new file is uploaded / updated in S3 source bucket
+    folder "subjecteventcrffile"</p>
+</li>
+<li>
+<p>Job name convention:
+    [subject.id]_[subjecteventcrf.id]_[ddfile.name]_[file
+    version code]_[timestamp]</p>
+</li>
+</ul>
+<p><img alt="_scroll_external/attachments/screen-shot-2019-01-17-at-1-41-22-pm-e5866d37b3ac0070e2c2f10ca07f196d36a9f281b145357fd331e2b2f3f14e51.png" src="media/image6.png" />{width="2.8678794838145234in"
+height="2.6041666666666665in"}</p>
+<h5 id="aws-lambda-function">(AWS) Lambda Function</h5>
+<ul>
+<li>
+<p>QUERY READ REPLICA:</p>
+<ul>
+<li>
+<p>L1 - query file info from the read replica</p>
+<ul>
+<li>
+<p>input: file path and file name from source bucket</p>
+</li>
+<li>
+<p>output: file metadata json</p>
+<ul>
+<li>
+<p>if file is found</p>
+<ul>
+<li>
+<p>ddcrf.name</p>
+</li>
+<li>
+<p>ddfile.name</p>
+</li>
+<li>
+<p>participant code</p>
+</li>
+<li>
+<p>event code</p>
+</li>
+<li>
+<p>subjecteventcrf.id</p>
+</li>
+<li>
+<p>subjecteventcrffile.revisionnumber</p>
+</li>
+<li>
+<p>subjecteventcrffile.id</p>
+</li>
+<li>
+<p>pipeline_code</p>
+</li>
+</ul>
+</li>
+<li>
+<p>if file is not found</p>
+<ul>
+<li>return ERROR</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>step fn - retry function, checks return status of L1 (expect
+    raised ERROR and try for max attempt)</p>
+</li>
+<li>
+<p>duration:15 minutes</p>
+</li>
+<li>
+<p>frequency: every 30 sec</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Process DCM:</p>
+<ul>
+<li>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>All the following functions process the same file.</p>
+</li>
+<li>
+<p>Size may be a restriction for lambda.</p>
+</li>
+<li>
+<p>AWS batch can an be an alternate solution.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>L5 - parse file and extract the DICOM header</p>
+<ul>
+<li>
+<p>input: file path and name</p>
+</li>
+<li>
+<p>output: DICOM header info for each scan (list)</p>
+<ul>
+<li>
+<p>studyUID</p>
+</li>
+<li>
+<p>serieUID</p>
+</li>
+<li>
+<p>serienum</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>L7 - write ATRIUID in DICOM header</p>
+</li>
+<li>
+<p>L4 - copy processed file from s3 source bucket to s3 temp
+    bucket, rename the file</p>
+<ul>
+<li>
+<p>input:</p>
+<ul>
+<li>
+<p>source file path and name</p>
+</li>
+<li>
+<p>target file path and name</p>
+</li>
+</ul>
+</li>
+<li>
+<p>output: successful (True/False)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>ADDITIONAL PROCESS:</p>
+<ul>
+<li>L8 - additional process (such as LONI process)</li>
+</ul>
+</li>
+<li>
+<p>WRITE META DATA:</p>
+<ul>
+<li>
+<p>L6 - call API to write file metadata in study DB (set file
+    status to "in progress")</p>
+<ul>
+<li>
+<p>input: L1 and L5 output</p>
+</li>
+<li>
+<p>output: successful (True/False)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>COPY TO DESTINATION:</p>
+<ul>
+<li>
+<p>L9 - copy file from S3 temp bucket to S3 destination bucket</p>
+<ul>
+<li>
+<p>input:</p>
+<ul>
+<li>
+<p>s3 temp bucket</p>
+</li>
+<li>
+<p>s3 destination bucket</p>
+</li>
+<li>
+<p>file path</p>
+</li>
+<li>
+<p>file name</p>
+</li>
+</ul>
+</li>
+<li>
+<p>output: successful (True/False)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>UPDATE STATUS:</p>
+<ul>
+<li>L10 - call API to update file status in study DB to "done"</li>
+</ul>
+</li>
+<li>
+<p>ErrorSNS</p>
+<ul>
+<li>
+<p>L3 - email/log error for Admin</p>
+<ul>
+<li>
+<p>input: error</p>
+</li>
+<li>
+<p>output: "status : error"</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>PROCESS COMPLETION SNS:</p>
+<ul>
+<li>
+<p>L11 - email / log to Admin on summary or error</p>
+<ul>
+<li>
+<p>if error: call API to update file status in study DB to
+    "error"</p>
+</li>
+<li>
+<p>input: status</p>
+</li>
+<li>
+<p>output: successful (True/False)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>USER DIGEST (This has to be post pipeline processing - separate
+    Lambda not part of this step fn):</p>
+<ul>
+<li>
+<p>L12 - (user digest) send batch summary to users </p>
+<ul>
+<li>
+<p>input: duration (last 24 hours etc.)</p>
+</li>
+<li>
+<p>output: successful (True/False)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="aws-batchedcaws-93">(AWS) BatchEDCAWS-93</h5>
+<p><img alt="_scroll_external/attachments/aws-batch-plan-xml-0ba6ff367a31e23af50a853fdd3b8314639f33723e69fe5bcd00f69a99323ae9.png" src="media/image7.png" />{width="5.833333333333333in"
+height="6.583333333333333in"}</p>
+<h4 id="error-logs">Error Logs</h4>
+<p>Pipeline errors will be logged in the S3 bucket</p>
+<ul>
+<li>
+<p>bucket name: atri-edc-trc-production-<em>[aws account ID]</em></p>
+</li>
+<li>
+<p>source folder: image_pipelines</p>
+</li>
+<li>
+<p>file path: image_pipelines/error_logs/[edcpipeline.code]/</p>
+</li>
+<li>
+<p>file name: (matching closely with destination file name under
+    quarantined folder)</p>
+<ul>
+<li>[<a href="http://ddcrf.name">ddcrf.name</a>
+    (http://ddcrf.name)]_[<a href="http://ddfile.name">ddfile.name</a>
+    (http://ddfile.name)]_[participant code]_[event
+    code]_[<a href="http://subjecteventcrf.id">subjecteventcrf.id</a>
+    (http://subjecteventcrf.id)]_[subjecteventcrffile.revisionnumber]_[<a href="http://edcpipelinefile.id">edcpipelinefile.id</a>
+    (http://edcpipelinefile.id)]_[timestamp]_error_log.txt</li>
+</ul>
+</li>
+</ul>
+<h5 id="error-flags-in-the-database">Error Flags in the Database</h5>
+<p>scenario 1: edcpipelinefile.status = completed, but
+edcpipelinefile.has_error = True</p>
+<ul>
+<li>
+<p>File is processed and is available in destination bucket quarantined
+    folder, but some errors were generated during the process</p>
+<ul>
+<li>e.g. can't insert ATRIUID into the DICOM header etc.</li>
+</ul>
+</li>
+</ul>
+<p>scenario 2: edcpipelinefile.status = Failed</p>
+<ul>
+<li>File is not available in the destination bucket quarantined folder,
+    something more seriously wrong during the process</li>
+</ul>
+<h5 id="error-codes-and-their-meaning">Error Codes and their meaning</h5>
+<p>Please refer to <a href="#pipeline-dictionary">Pipeline Dictionary</a></p>
+<p>Q: should I promote error code to database table column? e.g.
+edcpipelinefileerrorlog.error_code</p>
+<h5 id="error-notification-email">Error Notification Email</h5>
+<p><img alt="_scroll_external/attachments/image2019-3-22_0-29-26-3ea3e3f56b0b6afecd73ab5072b10bd1436be055e6ec637b98ffb29afb2d8efd.png" src="media/image8.png" />{width="5.9006944444444445in"
+height="4.06590113735783in"}</p>
+<h3 id="relevant-data">Relevant Data</h3>
+<h4 id="atriuid-batch-script-logic">ATRIUID / Batch script logic</h4>
+<p><img alt="_scroll_external/attachments/img_1369-1b6ac829ae406f5edc8a2dabbe4c7af5b39d225505079f7ddb12ee3d7cdb86ed.jpg" src="media/image9.jpeg" />{width="5.555555555555555in"
+height="4.166666666666667in"}</p>
+<h4 id="brainstorming-drawing-board">Brainstorming Drawing Board</h4>
+<p><img alt="_scroll_external/attachments/img_1352-ac757a28186678e45fa0a20eef72449af4d66b0bfaf4b51c02dae2c209429c74.jpg" src="media/image10.jpeg" />{width="5.555555555555555in"
+height="4.166666666666667in"}</p>
+<p><a href="#image-pipeline">IMG_6233.HEIC</a></p>
+<h4 id="trc-amyloid-pet-scan-data-flow">TRC Amyloid PET Scan &amp; Data Flow</h4>
+<p><a href="#image-pipeline">TRC_PET_Data_Flow.pdf</a></p>
+<h3 id="pipeline-dictionary">Pipeline Dictionary</h3>
+<h4 id="function-list">Function List</h4>
+<p>code   description                     lambda function                              script</p>
+<hr />
+<p>L1     Lambda                          \[study portal name]-imgpipe-query-info <br />
+  L2     Lambda                          imgpipe-submit-batch-job                   <br />
+  S1     script processing image files                                                processDMC.py
+  L3     Lambda                          imgpipe-get-batch-job-status               <br />
+  L4     Lambda                          imgpipe-copy-to-destination                <br />
+  L5     Lambda                          imgpipe-update-pipeline-status             <br />
+  L6     Lambda                          imgpipe-notification-process-error         <br />
+  L7     Lambda                          imgpipe-notification-process-completion    <br />
+  L8     Lambda                          img-pipe-create-pipeline-job               <br />
+  L9     Lambda                          img-pipe-invoke-step-function                </p>
+<h4 id="error-list">Error List</h4>
+<p>code       meaning                                                                                                                    </p>
+<hr />
+<p>ERRL1001   Missing expected input                                                                                                   <br />
+  ERRL1002   Failed to create db connection                                                                                           <br />
+  ERRL1003   EDC record not found                                                                                                     <br />
+  ERRL1004   Failed to query EDC record                                                                                               <br />
+  ERRL2001   Error submitting Batch Job.                                                                                              <br />
+  ERRL2002   missing required input                                                                                                   <br />
+  ERRS1001   Missing expected input parameter.                                                                                        <br />
+  ERRS1002   Failed to read DICOM file.                                                                                               <br />
+  ERRS1003   Return subject_event_crf_file_id / pipeline_code{} subject_event_crf_file_id / pipeline_code {} does not match <br />
+  ERRS1004   Failed to call API                                                                                                       <br />
+  ERRS1005   API returned failed response.                                                                                            <br />
+  ERRS1006   ATRIUID is empty string in the api response.                                                                             <br />
+  ERRS1007   ATRIUID key not present in the api response for study_uid {} and series_uid {}.                                        <br />
+  ERRS1008   ATRUID insert failed for image with study_uid {} and series_uid {}.                                                    <br />
+  ERRS1009   Failed to read DICOM file during ATRIUID insert for study_uid {0} and series_uid {1}                                   <br />
+  ERRS1010   Invalid input folder location.                                                                                           <br />
+  ERRS1011   Input files missing in input folder                                                                                      <br />
+  ERRL3001                                                                                                                            <br />
+  ERRL4001   Missing required input                                                                                                   <br />
+  ERRL4002   Error copy file to destination                                                                                           <br />
+  ERRL4003   API call failed                                                                                                          <br />
+  ERRL8001   Failed to call API                                                                                                         </p>
+<h3 id="image-pipeline-file-transfer-methods">Image Pipeline File Transfer Methods</h3>
+<p>Compare methods for external ATRI collaborators to transfer files to and
+from ATRI hosted s3 buckets.</p>
+<pre><code>                  CyberDuck/Mountain Duck           Commander One                     Transfer SFTP
+</code></pre>
+<hr />
+<p>authentication      AWS access key + AWS secret key   AWS access key + AWS secret key   username/password
+  security            client-side encryption                                            <br />
+  connection          HTTPS                                                             <br />
+  price               OpenSource/Free software                                          <br />
+  logs                s3 logs                           s3 logs                         <br />
+  usability           client                            client                          <br />
+  platform            macOS, Windows                    mac only                        <br />
+  setup/maintenance                                                                       </p>
+<p>Notes:</p>
+<p>Direct connection to S3 method:  s3:ListAllMyBuckets  (listing all
+buckets or access denied error) </p>
+<h3 id="image-pipeline-process-flow-diagram-high-level">Image Pipeline Process Flow Diagram - High Level</h3>
+<p><img alt="_scroll_external/attachments/image_pipeline_flow-drawio-6c6b3f4d344a46be0f49759aa8bc1cec20c36781692bd4622a303df6f54393df.png" src="media/image11.png" />{width="5.114583333333333in"
+height="6.78125in"}</p>
+<h3 id="image-pipeline-components-and-resources">Image Pipeline Components and Resources</h3>
+<h4 id="edc-plugin">EDC Plugin</h4>
+<h5 id="resources">Resources</h5>
+<ul>
+<li>
+<p>EDC_config: <a href="https://github.com/atrihub/EDC_config">https://github.com/atrihub/EDC_config</a>
+    (https://github.com/atrihub/EDC_config)</p>
+<ul>
+<li>EDC_IMAGE_PIPELINE_PLUGIN: flat to turn on and off plugin in
+    EDC</li>
+</ul>
+</li>
+<li>
+<p>EDC: <a href="https://github.com/atrihub/EDC">https://github.com/atrihub/EDC</a>
+    (https://github.com/atrihub/EDC)</p>
+<ul>
+<li>
+<p>settings: EDC_IMAGE_PIPELINE_PLUGIN</p>
+</li>
+<li>
+<p>authcore: image_pipeline_aws_integration group</p>
+</li>
+<li>
+<p>account management: authentication sync tool - (note: take it
+    out in Phase I)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>edc-image-pipeline:
+    <a href="https://github.com/atrihub/edc-image-pipeline">https://github.com/atrihub/edc-plugin-image-pipeline</a>
+    (https://github.com/atrihub/edc-image-pipeline)</p>
+<ul>
+<li>image pipeline models, APIs etc.</li>
+</ul>
+</li>
+<li>
+<p>S3 buckets:</p>
+<ul>
+<li>
+<p>atri-edc-plugins-github-deployment</p>
+<ul>
+<li>
+<p>edc-plugin-image-pipeline</p>
+<ul>
+<li>
+<p>batch</p>
+</li>
+<li>
+<p>docker</p>
+</li>
+<li>
+<p>lambda</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>atri-edc-logs</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="pipeline-architecture">Pipeline Architecture</h4>
+<h5 id="resources_1">Resources</h5>
+<ul>
+<li>
+<p>AWS-Deployment: <a href="https://github.com/atrihub/AWS-Deployment">https://github.com/atrihub/AWS-Deployment</a>
+    (https://github.com/atrihub/AWS-Deployment)</p>
+<ul>
+<li>
+<p>Pipeline architecture</p>
+<ul>
+<li>
+<p>Lambda function code</p>
+</li>
+<li>
+<p>Stepfunction configuration</p>
+</li>
+<li>
+<p>Image file processing</p>
+</li>
+<li>
+<p>Triggers</p>
+</li>
+<li>
+<p>CloudFormation CI/CD scripts</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="runbook">Runbook</h4>
+<h5 id="resources_2">Resources</h5>
+<p>Box location: <a href="https://atrihub.app.box.com/file/399829398942">https://atrihub.app.box.com/file/399829398942</a>
+(https://atrihub.app.box.com/file/399829398942)</p>
+<h4 id="other-resources">Other Resources</h4>
+<ul>
+<li><a href="#image-pipeline---parking-lot">Image Pipeline - Parking Lot</a></li>
+</ul>
+<h3 id="image-pipeline-architecture-diagram">Image Pipeline Architecture Diagram</h3>
+<p><img alt="_scroll_external/attachments/untitled-diagram-drawio-99951be9a5ba7f9f935bb70cf0fa23261753124347f29bfa9c24abe2ee0c3f6d.png" src="media/image12.png" />{width="5.9006944444444445in"
+height="2.265298556430446in"}</p>
+<h1 id="decision-log">Decision log</h1>
+<p>Create decision</p>
+<p>Decision                                                                    Status                                                            Stakeholders   Outcome   Due date   Owner</p>
+<hr />
+<p><a href="#edc-image-pipeline-plugin---api">EDC Image Pipeline Plugin - API</a>         <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        
+  <a href="#image-pipeline---parking-lot">Image Pipeline - Parking Lot</a>               <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        
+  <a href="#image-pipeline---processdcm.py">Image Pipeline - ProcessDCM.py</a>           <strong><span style="font-variant:small-caps;"> not started </span></strong>                                        
+  <a href="#image-pipeline---step-function">Image Pipeline - Step Function</a>           <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        
+  <a href="#image-pipeline---batch">Image Pipeline - Batch</a>                           <strong><span style="font-variant:small-caps;"> not started </span></strong>                                        
+  <a href="#image-pipeline---lambda">Image Pipeline - Lambda</a>                         <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        
+  <a href="#aws-consultant-suggestions-summary">AWS Consultant Suggestions Summary</a>   <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        
+  <a href="#edc-file-upload-improvements">EDC File Upload Improvements</a>               <strong><span style="font-variant:small-caps;"> paused </span></strong>                                             
+  <a href="#edc-image-pipeline-plugin---model">EDC Image Pipeline Plugin - Model</a>     <strong><span style="font-variant:small-caps;"> in progress </span></strong>                                        </p>
+<h2 id="decisions_8">Decisions</h2>
+<p>Record important project decisions and communicate them with your team.</p>
+<p>Create from template</p>
+<h2 id="edc-file-upload-improvements">EDC File Upload Improvements</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> paused </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> medium </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors   <a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo Jimenez-Maggiora</a> (https://atrihub.atlassian.net/wiki/display/\~gustavoj) <a href="https://atrihub.atlassian.net/wiki/display/~jiashins">Jia-Shing So</a> (https://atrihub.atlassian.net/wiki/display/\~jiashins) <a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir Kavatkar</a> (https://atrihub.atlassian.net/wiki/display/\~kavatkar) 
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="background_1">Background</h3>
+<p>File uploading is very slow via the EDC file attachment widget.</p>
+<p>The issue is we are loading everything in memory when go through
+multiple layers to upload a file (GUI → API → Django → boto3 → write to
+S3 bucket).</p>
+<p>We need to look into a more optimal solution to improve the performance
+of the file attachment widget. </p>
+<h3 id="relevant-data_1">Relevant data</h3>
+<ul>
+<li>
+<p>AWS SDK for javascript</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html">https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html</a>
+    (https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html)</li>
+</ul>
+</li>
+<li>
+<p>AWS Security Token Service STS</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html">https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html</a>
+    (https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html)</li>
+</ul>
+</li>
+</ul>
+<h3 id="options-considered">Options considered</h3>
+<p>Upload file directory to s3 bucket using AWS SDK for Javascript and AWS
+STS (for authentication).</p>
+<p>Flow:</p>
+<p>Client browser file uploaded → calls Django API to get a session token
+via sts → with the access token AWS SDK for Javascript uploads the file
+into s3 bucket, returns object key → calls Django API to update
+SubjectEventCrfFile table with the file info</p>
+<p>use STS assumed_role() to get the session token, set the duration to
+300sec (min value):</p>
+<p>(access key, secret key, session token) =
+sts.assumed_role(upload_only_role_policy, s3 key, duration seconds)</p>
+<ul>
+<li>important: make sure to scoping down the role to only upload a
+    specific object </li>
+</ul>
+<h3 id="action-items_8">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome">Outcome</h3>
+<h2 id="aws-consultant-suggestions-summary">AWS Consultant Suggestions Summary</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> medium </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors   <a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a> (https://atrihub.atlassian.net/wiki/display/\~paravindranath) <a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo Jimenez-Maggiora</a> (https://atrihub.atlassian.net/wiki/display/\~gustavoj) <a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a> (https://atrihub.atlassian.net/wiki/display/\~bruschi) <a href="https://atrihub.atlassian.net/wiki/display/~kavatkar">Mihir Kavatkar</a> (https://atrihub.atlassian.net/wiki/display/\~kavatkar) 
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="summary">Summary</h3>
+<h4 id="runbook_1">Runbook</h4>
+<ul>
+<li>
+<p>IAM user "atri-img-pipe-ec2-docker", Group
+    "atri-img-pipe-ec2-docker" (item 7)</p>
+<ul>
+<li>If we push Docker from an EC2 instance instead of from local
+    machine, we can use the role instead a user (timeline: future)</li>
+</ul>
+</li>
+<li>
+<p>NEVER grant the following policies:</p>
+<ul>
+<li>
+<p>AmazonVPCFullAccess</p>
+</li>
+<li>
+<p>AmazonS3FullAccess</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Avoid using CloudWatchLogFullAccess policy, try
+    AWSLambdaBasicExecutionRole</p>
+</li>
+<li>
+<p>IAM roles, one per study portal per image pipeline</p>
+<ul>
+<li>
+<p>then per lambda</p>
+<ul>
+<li>
+<p>default: atri-lambda-basic-execution-role</p>
+</li>
+<li>
+<p>query-read-replica:
+    atri-edc-trc-dev-img-pipe-query-read-replica-lambda-role</p>
+</li>
+<li>
+<p>submit-batch-job:
+    atri-edc-trc-dev-img-pipe-submit-batch-job-lambda-role</p>
+</li>
+<li>
+<p>get-batch-job-status:
+    atri-edc-trc-dev-img-pipe-get-batch-job-status-lambda-role</p>
+</li>
+<li>
+<p>copy-to-destination:
+    atri-edc-trc-dev-img-pipe-copy-to-destination-lambda-role</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="cloudformation">CloudFormation</h4>
+<ul>
+<li>Anything marked as custom script in runbook under "CloudFormation"
+    column can be hooked into CloudFormation (as a lambda function)
+    using <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html">Custom
+    Resources</a>
+    (https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html)</li>
+</ul>
+<h4 id="docker">Docker</h4>
+<ul>
+<li>
+<p>When creating the temporary EC2 instance, <em>do not</em> use the same VPC
+    for EDC/image pipeline (e.g. use the default VPC)</p>
+</li>
+<li>
+<p>Use the latest AMI for docker: amazonlinux:2018.03</p>
+</li>
+</ul>
+<h4 id="trigger">Trigger</h4>
+<ul>
+<li>since we have the CloudWatch logs, we don't need to setup the
+    CloudTrail</li>
+</ul>
+<h3 id="relevant-data_2">Relevant data</h3>
+<p><a href="#meeting-notes">Meeting notes</a></p>
+<p><a href="https://atrihub.app.box.com/file/399829398942">runbook</a>
+(https://atrihub.app.box.com/file/399829398942)</p>
+<h3 id="action-items_9">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_1">Outcome</h3>
+<h2 id="design-for-unit-testing">Design for unit testing</h2>
+<p><img alt="_scroll_external/attachments/was-unit-test-drawio-59d61c94905c4f1842d5ad2d6faced07246879327b3da967a64046b54fa0ec30.png" src="media/image13.png" />{width="5.9006944444444445in"
+height="1.21208552055993in"}</p>
+<p>Flow #1\
+code stored in github -&gt; pull request -&gt; triggers test run on
+Travis CI -&gt; result + coverage reports come back to Github</p>
+<p>reference .travis.yml configuration:
+<a href="https://github.com/nicor88/aws-python-lambdas/blob/master/.travis.yml">https://github.com/nicor88/aws-python-lambdas/blob/master/.travis.yml</a>
+(https://github.com/nicor88/aws-python-lambdas/blob/master/.travis.yml)</p>
+<p>target: unit tests only for phase I</p>
+<p>Lambda functions:</p>
+<ol>
+<li>
+<p>img-pipe-invoke-step-function.py</p>
+</li>
+<li>
+<p>img-pipe-create-pipeline-job.py</p>
+</li>
+<li>
+<p>img-pipe-query-read-replica.py</p>
+</li>
+<li>
+<p>img-pipe-submit-batch-job.py</p>
+</li>
+<li>
+<p>img-pipe-get-batch-job-status.py</p>
+</li>
+<li>
+<p>img-pipe-copy-to-destination.py</p>
+</li>
+<li>
+<p>img-pipe-notification-for-error.py</p>
+</li>
+<li>
+<p>img-pipe-notification-for-completion.py</p>
+</li>
+</ol>
+<p>Image Processing script:</p>
+<ol>
+<li>processDCM.py</li>
+</ol>
+<p>.travis.yml template</p>
+<hr />
+<blockquote>
+<p>language: python</p>
+<p>python: '3.6'</p>
+<p>sudo: false</p>
+<p># We don't care about Travis' python versions, we install conda anyway</p>
+<p>#env:</p>
+<p># global:</p>
+<p># - AWS_DEFAULT_REGION=eu-west-1</p>
+<p># - PYTHONPATH=\$TRAVIS_BUILD_DIR:\$PYTHONPATH</p>
+<p>install:</p>
+<ul>
+<li>
+<p>pip install awscli</p>
+</li>
+<li>
+<p>pip install boto3</p>
+</li>
+</ul>
+<p># # install libs from the requirements of each single lambda</p>
+<p># - for i in src/*/; do pip install -r \$i"requirements.txt"; done</p>
+<p>script:</p>
+<p># run tests</p>
+<ul>
+<li>pytest</li>
+</ul>
+<p>#before_deploy:</p>
+<p># - mkdir -p dist</p>
+<p># # create zip for each lambda folder in src</p>
+<p># - for i in src/*/; do .travis/build_lambda.sh "\$i"; done</p>
+<p># - cp src/*.zip dist</p>
+<p># deploy:</p>
+<p># provider: s3</p>
+<p># access_key_id: \$AWS_ACCESS_KEY_ID</p>
+<p># secret_access_key: \$AWS_SECRET_ACCESS_KEY</p>
+<p># bucket: \$AWS_BUCKET</p>
+<p># region: \$AWS_BUCKET_REGION</p>
+<p># local_dir: dist</p>
+<p># upload-dir: deployments/lambdas/travis_build</p>
+<p># acl: private # keep them private</p>
+<p># skip_cleanup: true</p>
+<p># on:</p>
+<p># all_branches: true</p>
+<p>notifications:</p>
+<p>email: false</p>
+</blockquote>
+<hr />
+<p>Code Block 1 Travis.yml</p>
+<h2 id="edc-image-pipeline-plugin-model">EDC Image Pipeline Plugin - Model</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors   <a href="https://atrihub.atlassian.net/wiki/display/~gustavoj">Gustavo Jimenez-Maggiora</a> (https://atrihub.atlassian.net/wiki/display/\~gustavoj) <a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a> (https://atrihub.atlassian.net/wiki/display/\~bruschi) <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) <a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a> (https://atrihub.atlassian.net/wiki/display/\~paravindranath) 
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="database_1">Database</h3>
+<p>File information tracked in the database tables.</p>
+<h4 id="pipelineedcpipeline_1">Pipeline.EDCPipeline</h4>
+<p>register each pipeline (e.g. pipeline for image file, pipeline for audio
+files, etc.</p>
+<p>Field     </p>
+<hr />
+<p>ID      <br />
+  Code    <br />
+  Label   <br />
+  DDFiles   </p>
+<h4 id="pipelineedcpipelinefile_1">pipeline.EDCPipelineFile</h4>
+<p>one pipeline execution per record, one source file can be processed more
+than once.</p>
+<p>Field Name                                                                                </p>
+<hr />
+<p>ID                                                                                      <br />
+<a href="http://EDCPipeline.id">EDCPipeline.id</a> (http://EDCPipeline.id)                         <br />
+<a href="http://SubjectEventCrfFile.id">SubjectEventCrfFile.id</a> (http://SubjectEventCrfFile.id) <br />
+  file_name                                                                              <br />
+  Status                                                                                    Started, In Progress, Completed, Failed
+  has_error                                                                                T/F</p>
+<h4 id="pipelineedcpipelinefiledicom_1">pipeline.EDCPipelineFileDicom</h4>
+<p>Field Name</p>
+<hr />
+<p>ID
+  <a href="http://edcpipelinefile.id">EDCPipelineFile.id</a> (http://EDCPipelineFile.id)
+  ATRIUID
+  studyUID
+  serieUID
+  serienum
+  number_of_instances</p>
+<h3 id="action-items_10">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_2">Outcome</h3>
+<h2 id="edc-image-pipeline-plugin-api">EDC Image Pipeline Plugin - API</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="api_1">API</h3>
+<p>/pipeline/edcpipeline/file</p>
+<hr />
+<blockquote>
+<p>input:</p>
+<p>{</p>
+<p>pipeline_code: xxx</p>
+<p>subject_event_crf_file_id: xxx</p>
+<p>*edc_pipieline_file_id: xxx (required <strong>for</strong> update)</p>
+<p>}</p>
+<p>output:</p>
+<p>{</p>
+<p>success: T/F</p>
+<p>error_code: reference dictionary (only show <strong>if</strong> success is F)</p>
+<p>error: xxxx (only show <strong>if</strong> success is F)</p>
+<p>data: {"id": xxx, ...} // EDCPipelineFile object</p>
+<p>}</p>
+</blockquote>
+<hr />
+<p>/pipeline/edcpipeline/file/dicom/add_scan_info</p>
+<ul>
+<li>
+<p>post</p>
+<ul>
+<li>request body (json)</li>
+</ul>
+</li>
+</ul>
+<hr />
+<blockquote>
+<p>input:</p>
+<p>{</p>
+<p>pipeline_code: xxx,</p>
+<p>subject_event_crf_file_id: xxx,</p>
+<p>edc_pipieline_file_id: xxxx</p>
+<p>scans:[</p>
+<p>{</p>
+<p>study_uid: xxx,</p>
+<p>series: [</p>
+<p>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</p>
+<p>{series_uid: blah, series_number: halb, number_of_instance: 123},</p>
+<p>...</p>
+<p>]</p>
+<p>},</p>
+<p>{</p>
+<p>study_uid: xxx,</p>
+<p>series: [</p>
+<p>{series_uid: xxx, series_number: yyy, number_of_instance: 123},</p>
+<p>{series_uid: blah, series_number: halb, number_of_instance: 123}, ...</p>
+<p>]</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<hr />
+<blockquote>
+<p>output:</p>
+<p>{</p>
+<p>"success": <strong>true</strong>,</p>
+<p>"error_code": reference dictionary (only show <strong>if</strong> success is F)</p>
+<p>"error": xxxx (only show <strong>if</strong> success is F)</p>
+<p>"data":</p>
+<p>{</p>
+<p>edc_pipeline_file_id: 123,</p>
+<p>pipeline_code: xxx,</p>
+<p>subject_event_crf_file_id: xxx,</p>
+<p>scans: [</p>
+<p>{</p>
+<p>"study_uid": xxx,</p>
+<p>"series": [</p>
+<p>{"series_uid": aaa, "atri_uid": yyy},</p>
+<p>{"series_uid": aaa, "atri_uid": ddd},</p>
+<p>...</p>
+<p>]</p>
+<p>},</p>
+<p>{</p>
+<p>"studyuid": xxx,</p>
+<p>"series": [</p>
+<p>{"series_uid": aaa, "atri_uid": yyy},</p>
+<p>{"series_uid": aaa, "atri_uid": ddd},</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<h3 id="action-items_11">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_3">Outcome</h3>
+<h2 id="image-pipeline-lambda">Image Pipeline - Lambda</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="naming-convention">Naming convention</h3>
+<p>prefix + function name</p>
+<ul>
+<li>
+<p>prefix = atri-edc-[study portal instance]-[image pipeline code]</p>
+<ul>
+<li>e.g. atri-edc-trc-dev-img-pipe-amypet</li>
+</ul>
+</li>
+<li>
+<p>function names:</p>
+<ul>
+<li>
+<p>query-read-replica</p>
+</li>
+<li>
+<p>create-pipeline-job</p>
+</li>
+<li>
+<p>submit-batch-job</p>
+</li>
+<li>
+<p>get-batch-job-status</p>
+</li>
+<li>
+<p>copy-to-destination</p>
+</li>
+<li>
+<p>notification-for-error</p>
+</li>
+<li>
+<p>notification-for-completion</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="lambda-functions">Lambda Functions</h3>
+<ul>
+<li>
+<p>query-read-replica</p>
+<ul>
+<li>query EDC source file meta data info from EDC RDS read replica</li>
+</ul>
+</li>
+<li>
+<p>create-pipeline-job</p>
+<ul>
+<li>call image pipeline API to create a new job in the
+    EDCPipelineFile table</li>
+</ul>
+</li>
+<li>
+<p>submit-batch-job</p>
+<ul>
+<li>
+<p>create a new batch job to process the image file</p>
+</li>
+<li>
+<p>copy source file to workspace s3 bucket</p>
+</li>
+<li>
+<p>optimistically process file as DICOM format and insert ATRIUID
+    into the DICOM header</p>
+</li>
+</ul>
+</li>
+<li>
+<p>get-batch-job-status</p>
+<ul>
+<li>check batch job status</li>
+</ul>
+</li>
+<li>
+<p>copy-to-destination</p>
+<ul>
+<li>copy processed file from workspace to destination s3 bucket</li>
+</ul>
+</li>
+<li>
+<p>notification-for-error</p>
+<ul>
+<li>
+<p>logs error message in s3 bucket</p>
+</li>
+<li>
+<p>send out notification to specific recipients</p>
+</li>
+</ul>
+</li>
+<li>
+<p>notification-for-completion</p>
+<ul>
+<li>send out notification to specific recipients</li>
+</ul>
+</li>
+</ul>
+<h3 id="reference">Reference</h3>
+<p>Runbook: <a href="https://atrihub.app.box.com/file/399829398942">https://atrihub.app.box.com/file/399829398942</a>
+(https://atrihub.app.box.com/file/399829398942)</p>
+<h3 id="action-items_12">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_4">Outcome</h3>
+<h2 id="image-pipeline-step-function">Image Pipeline - Step Function</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="step-function">Step Function</h3>
+<p>The main component of the pipeline, setup one per pipeline.</p>
+<p>Carries the pipeline process through the lambda functions.</p>
+<ul>
+<li>
+<p>triggered when a new file is uploaded / updated in S3 source bucket
+    folder "subjecteventcrffile"</p>
+</li>
+<li>
+<p>Job name convention: [<a href="http://subject.id">subject.id</a>
+    (http://subject.id)]_[<a href="http://subjecteventcrf.id">subjecteventcrf.id</a>
+    (http://subjecteventcrf.id)]_[<a href="http://ddfile.name">ddfile.name</a>
+    (http://ddfile.name)]_[file version code]_[timestamp]</p>
+</li>
+</ul>
+<p>State Diagram</p>
+<p><img alt="_scroll_external/attachments/screen-shot-2019-03-27-at-5-55-46-pm-51b5a6fa5b227bccf7ace72b58f570ec2a550b4abba1af74e28e334481c8b82a.png" src="media/image14.png" />{width="4.950495406824147in"
+height="4.166666666666667in"}</p>
+<h3 id="action-items_13">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_5">Outcome</h3>
+<h2 id="image-pipeline-processdcmpy">Image Pipeline - ProcessDCM.py</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> not started </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> high </span></strong> / <strong><span style="font-variant:small-caps;"> medium </span></strong> / <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a> (https://atrihub.atlassian.net/wiki/display/\~paravindranath) 
+  Approver       <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) <a href="https://atrihub.atlassian.net/wiki/display/~bruschi">Stefania Bruschi</a> (https://atrihub.atlassian.net/wiki/display/\~bruschi)
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome      <br />
+  Epic           <a href="https://atrihub.atlassian.net/browse/PIPE-1">PIPE-1</a> (https://atrihub.atlassian.net/browse/PIPE-1)</p>
+<h3 id="background_2">Background</h3>
+<h3 id="relevant-data_3">Relevant data</h3>
+<h3 id="options-considered_1">Options considered</h3>
+<hr />
+<pre><code>               Option 1:                                                                                                                                                                                     Option 2:
+</code></pre>
+<hr />
+<p>Description                                                                                                                                                                                                    </p>
+<p>Pros and cons    <img alt="_scroll_external/icons/add-4f14d566cd4def8f170c1c0b689648e053a4bfb56dc2974f2dde0f1d3328fb60.png" src="media/image15.png" />{width="0.16666666666666666in" height="0.16666666666666666in"}         <img alt="_scroll_external/icons/add-4f14d566cd4def8f170c1c0b689648e053a4bfb56dc2974f2dde0f1d3328fb60.png" src="media/image15.png" />{width="0.16666666666666666in" height="0.16666666666666666in"}</p>
+<pre><code>               ![\_scroll\_external/icons/forbidden-91ed7a9569c7f6084f7bfe65768d1813d768cfcd981b61d137b79eabd1f0fe11.png](media/image16.png){width="0.16666666666666666in" height="0.16666666666666666in"}   ![\_scroll\_external/icons/forbidden-91ed7a9569c7f6084f7bfe65768d1813d768cfcd981b61d137b79eabd1f0fe11.png](media/image16.png){width="0.16666666666666666in" height="0.16666666666666666in"}
+</code></pre>
+<p>Estimated cost   <strong><span style="font-variant:small-caps;"> large </span></strong>                                                                                                                                     <strong><span style="font-variant:small-caps;"> medium </span></strong></p>
+<hr />
+<h3 id="action-items_14">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<p>Updating the package name from pre-package-source to
+pre_package_source to resolve import
+issue<a href="https://atrihub.atlassian.net/browse/PIPE-39?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-39</a>
+(https://atrihub.atlassian.net/browse/PIPE-39?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong>\
+Adding python path to
+travis.yml<a href="https://atrihub.atlassian.net/browse/PIPE-40?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-40</a>
+(https://atrihub.atlassian.net/browse/PIPE-40?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<p>processDCM_refactor.py<a href="https://atrihub.atlassian.net/browse/PIPE-46?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-46</a>
+(https://atrihub.atlassian.net/browse/PIPE-46?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<ol>
+<li>Refactor the code </li>
+</ol>
+<p>test_dcm_check.py<a href="https://atrihub.atlassian.net/browse/PIPE-45?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-45</a>
+(https://atrihub.atlassian.net/browse/PIPE-45?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<ol>
+<li>
+<p>Add test case for pipeline code, extract meta and
+    subject_event_crf_file_id</p>
+</li>
+<li>
+<p>Add comments to test_insert_atriuid</p>
+</li>
+<li>
+<p>fix the import statement </p>
+</li>
+<li>
+<p>add path variable for input folder location</p>
+</li>
+</ol>
+<p>test_dcm_check_for_failure<a href="https://atrihub.atlassian.net/browse/PIPE-47?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-47</a>
+(https://atrihub.atlassian.net/browse/PIPE-47?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<ol>
+<li>Add a test case to test failure scenario of dcm </li>
+</ol>
+<p>test_for_atri_uid_in_data<a href="https://atrihub.atlassian.net/browse/PIPE-48?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-48</a>
+(https://atrihub.atlassian.net/browse/PIPE-48?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<p>test_for_atri_uid_key_not_present_in_data<a href="https://atrihub.atlassian.net/browse/PIPE-49?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-49</a>
+(https://atrihub.atlassian.net/browse/PIPE-49?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<p>test_for_non_dicom_files<a href="https://atrihub.atlassian.net/browse/PIPE-50?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-50</a>
+(https://atrihub.atlassian.net/browse/PIPE-50?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<p>test_for_error_messages<a href="https://atrihub.atlassian.net/browse/PIPE-55?src=confmacro"><img alt="\$iconUrl" src="media/image17.png" />{width="0.29170713035870516in"
+height="0.3125437445319335in"}PIPE-55</a>
+(https://atrihub.atlassian.net/browse/PIPE-55?src=confmacro) (
+<img alt="\$statusIcon" src="media/image17.png" />{width="0.29170713035870516in"
+height="0.3125437445319335in"} )</p>
+<p>Add a non dicom file for
+test<a href="https://atrihub.atlassian.net/browse/PIPE-51?src=confmacro"><img alt="_scroll_external/remote/viewavatar-ce35ef42002ee78f375d9cc5729af4363e774d106c6e020eabe990d1394ab56c" src="media/image4.png" />{width="0.16666666666666666in"
+height="0.16666666666666666in"}PIPE-51</a>
+(https://atrihub.atlassian.net/browse/PIPE-51?src=confmacro) - <strong><span
+style="font-variant:small-caps;"> in review </span></strong></p>
+<p><img alt="_scroll_external/attachments/screen-shot-2019-04-02-at-4-30-05-pm-7b46a643546bd1b5f5251108c6bfccf3b9bb147ae476c50a2025d60be9b7e035.png" src="media/image18.png" />{width="5.9006944444444445in"
+height="2.367302055993001in"}</p>
+<h3 id="outcome_6">Outcome</h3>
+<h2 id="image-pipeline-batch">Image Pipeline - Batch</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> not started </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> high </span></strong> / <strong><span style="font-variant:small-caps;"> medium </span></strong> / <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~paravindranath">Pradeep Ravindranath</a> (https://atrihub.atlassian.net/wiki/display/\~paravindranath) 
+  Approver     <br />
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="background_3">Background</h3>
+<h3 id="relevant-data_4">Relevant data</h3>
+<h3 id="options-considered_2">Options considered</h3>
+<hr />
+<pre><code>               Option 1:                                                                                                                                                                                     Option 2:
+</code></pre>
+<hr />
+<p>Description                                                                                                                                                                                                    </p>
+<p>Pros and cons    <img alt="_scroll_external/icons/add-4f14d566cd4def8f170c1c0b689648e053a4bfb56dc2974f2dde0f1d3328fb60.png" src="media/image15.png" />{width="0.16666666666666666in" height="0.16666666666666666in"}         <img alt="_scroll_external/icons/add-4f14d566cd4def8f170c1c0b689648e053a4bfb56dc2974f2dde0f1d3328fb60.png" src="media/image15.png" />{width="0.16666666666666666in" height="0.16666666666666666in"}</p>
+<pre><code>               ![\_scroll\_external/icons/forbidden-91ed7a9569c7f6084f7bfe65768d1813d768cfcd981b61d137b79eabd1f0fe11.png](media/image16.png){width="0.16666666666666666in" height="0.16666666666666666in"}   ![\_scroll\_external/icons/forbidden-91ed7a9569c7f6084f7bfe65768d1813d768cfcd981b61d137b79eabd1f0fe11.png](media/image16.png){width="0.16666666666666666in" height="0.16666666666666666in"}
+</code></pre>
+<p>Estimated cost   <strong><span style="font-variant:small-caps;"> large </span></strong>                                                                                                                                     <strong><span style="font-variant:small-caps;"> medium </span></strong></p>
+<hr />
+<h3 id="action-items_15">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_7">Outcome</h3>
+<h2 id="image-pipeline-parking-lot">Image Pipeline - Parking Lot</h2>
+<hr />
+<blockquote>
+<p>Add your comments directly to the page. Include links to any relevant research, data, or feedback.</p>
+</blockquote>
+<hr />
+<p>Status         <strong><span style="font-variant:small-caps;"> in progress </span></strong></p>
+<hr />
+<p>Impact         <strong><span style="font-variant:small-caps;"> low </span></strong>
+  Driver         <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei Qiu</a> (https://atrihub.atlassian.net/wiki/display/\~hongmeiq) 
+  Approver     <br />
+  Contributors <br />
+  Informed     <br />
+  Due date     <br />
+  Outcome        </p>
+<h3 id="immediate-needs">Immediate Needs</h3>
+<ul>
+<li>
+<p>relocate scripts (processDCM, lambda) from workspace bucket to a
+    &gt; central bucket</p>
+<ul>
+<li>
+<p>name: atri-edc-plugins-github-deployment</p>
+</li>
+<li>
+<p>location:</p>
+<ul>
+<li>
+<p>processDCM:
+    &gt; /edc-plugin-image-pipeline/batch/job_def_scripts/</p>
+</li>
+<li>
+<p>docker: /edc-plugin-image-pipeline/docker/</p>
+</li>
+<li>
+<p>lambda functions: /edc-plugin-image-pipeline/lambda/</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>log errors in a central log bucket</p>
+<ul>
+<li>
+<p>name: atri-edc-logs</p>
+</li>
+<li>
+<p>location: /[study]/edc-plugin-image-pipeline/</p>
+</li>
+</ul>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p>add edc user for API call with privs
+    &gt; to image-pipeline-aws-integration to EDC_Config</p>
+<ul>
+<li>name: image-pipeline-aws-integration-bot</li>
+</ul>
+</li>
+<li>
+<p>setup google mailing lists:</p>
+<ul>
+<li>
+<p>trc-img-pipe-amypet-l@atrihub.io</p>
+</li>
+<li>
+<p>trc-img-pipe-admin-l@atrihub.io</p>
+</li>
+</ul>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p>rename github repo edc-image-pipeline to
+    &gt; <strong>edc-plugin-image-pipeline</strong></p>
+</li>
+<li>
+<p>rename processDCM.py to process_dicom.py</p>
+</li>
+<li>
+<p>migrate image_pipeline folder from AWS-Deployment,
+    &gt; edc-plugin-image-pipeline repo</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>review CloudWatch logs make sure they are all traceable, e.g.
+    &gt; include information such as study, pipeline, image type, file id,
+    &gt; timestamp etc. (this will be a continuous project through phase I
+    &gt; and phase II)</li>
+</ul>
+<h3 id="phase-ii">Phase II</h3>
+<ul>
+<li>
+<p>data export API for image inventory:</p>
+<ul>
+<li>
+<p>EDCPipeline</p>
+</li>
+<li>
+<p>EDCPipelineFile</p>
+</li>
+<li>
+<p>EDCPipelineDicom</p>
+</li>
+</ul>
+</li>
+<li>
+<p>step function handle additional state 'status' = skip for query read
+    replica lambda function (re-evaluate whether we need this state
+    before implement)</p>
+</li>
+<li>
+<p>Digest email notification (weekly, daily summary)</p>
+</li>
+<li>
+<p>Revisit ProcessDCM logging error messages</p>
+<ul>
+<li>
+<p>currently logged in CloudWatch logs through print</p>
+</li>
+<li>
+<p>determine whether we can utilize Emil's approach</p>
+</li>
+</ul>
+</li>
+<li>
+<p>(evaluate) RDS Read Replica (R&amp;D required)</p>
+<ul>
+<li>if we can restrict access through policies, we may not need this
+    replica</li>
+</ul>
+</li>
+<li>
+<p>(evaluate) dispose workspace image files after execution is
+    completed</p>
+</li>
+<li>
+<p>process ECAT</p>
+</li>
+<li>
+<p>update lambda query read replica to query API token info from EDC
+    for user image-pipeline-aws-integration-bot</p>
+</li>
+<li>
+<p>fetch_and_run.sh (docker)</p>
+</li>
+<li>
+<p>replace arn:aws:lambda:us-east-1:898466741470:layer:psycopg2-py37:2
+    with our own layer in our account</p>
+</li>
+</ul>
+<h3 id="future">Future</h3>
+<ul>
+<li>
+<p>Codepipeline + Codebuild → deploy updated Lambda and processDCM code
+    from Github</p>
+</li>
+<li>
+<p>revisit code versioning (currently using Github for version control)</p>
+</li>
+<li>
+<p>automate step to create RDS read replica (based on answers we found
+    in Phase II, we may drop this)</p>
+</li>
+<li>
+<p>GUI register new pipeline in EDC? (TBD)</p>
+</li>
+<li>
+<p>Report error messages from s3 bucket</p>
+</li>
+</ul>
+<h3 id="action-items_16">Action items</h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="outcome_8">Outcome</h3>
+<h1 id="how-to-articles_1">How-to articles</h1>
+<p>Add how-to article</p>
+<p>Title                                                                                                                 Creator                                                                                                                                                                                                            Modified</p>
+<hr />
+<p><a href="#setup-a-new-image-pipeline">Setup A new Image Pipeline</a>                                                             <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Mar 27, 2019
+  <a href="#how-to-manually-trigger-image-pipeline-in-step-function">How to manually trigger image pipeline in step function</a>   <a href="https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence">Hongmei Qiu</a> (https://atrihub.atlassian.net/people/557058:0e04da62-9320-49f9-8df3-3a744f02137a?ref=confluence)   Mar 22, 2019</p>
+<h2 id="setup-a-new-image-pipeline">Setup A new Image Pipeline</h2>
+<h3 id="runbook_2">Runbook</h3>
+<p><a href="https://atrihub.app.box.com/file/399829398942">https://atrihub.app.box.com/file/399829398942</a>
+(https://atrihub.app.box.com/file/399829398942)</p>
+<h3 id="step-0">Step 0</h3>
+<p>(notes to <a href="https://atrihub.atlassian.net/wiki/display/~hongmeiq">Hongmei
+Qiu</a>
+(https://atrihub.atlassian.net/wiki/display/\~hongmeiq): improve this!)</p>
+<p>register a new pipeline with code and label info in the EDCPipeline
+table via Django Admin tool.</p>
+<h3 id="cicd">CI/CD</h3>
+<p>github repo: <a href="https://github.com/atrihub/AWS-Deployment">https://github.com/atrihub/AWS-Deployment</a>
+(https://github.com/atrihub/AWS-Deployment)</p>
+<p>run script: sh
+image_pipeline/cloudformation/scripts/create_image_pipeline.sh
+[configuration file]</p>
+<p>Script can be run multiple times on the same configuration, if a
+component is already setup, the script will skip that component</p>
+<h4 id="ouptput">Ouptput</h4>
+<p>pending...</p>
+<h4 id="configuration-file">Configuration File</h4>
+<p>location: image_pipeline/cloudformation/config</p>
+<p>file format: plain text</p>
+<p>file name suggestion: [study portal instance name]-[pipeline
+code].config</p>
+<h5 id="variables">Variables</h5>
+<p>pending...</p>
+<h5 id="example">Example</h5>
+<hr />
+<blockquote>
+<p>######### you may change the following variables based on the study portal, image type etc.</p>
+<p>DEBUG=false</p>
+<p>IS_PRODUCTION=false</p>
+<p>AWS_PROFILE='sand-informatics'</p>
+<p>AWS_PROFILE_DR='dr'</p>
+<p># Pipeline code registered in EDC</p>
+<p>EDC_PIPELINE_CODE='amypet'</p>
+<p># Image Type: default to use EDC pipeline code if it is short enough</p>
+<p>IMG_TYPE=\$EDC_PIPELINE_CODE</p>
+<p># EDC Elastic Beanstalk and RDS instances</p>
+<p>EDC_EB_APP='IMAGE-PIPELINE'</p>
+<p>EDC_EB_ENV='hq-trc-dev'</p>
+<p>RDS_READ_REPLICA=\$EDC_EB_ENV"-aurora"</p>
+<p>EDC_HOST='hq-trc-dev.atrihub.mobi'</p>
+<p># tags</p>
+<p>TAG_STUDY='trc'</p>
+<p>TAG_ENVIRONMENT='development'</p>
+<p>TAG_PIPELINE='image'</p>
+<p>TAG_IMG_TYPE=\$IMG_TYPE</p>
+<p># VPC</p>
+<p>VPC_NAME='sandbox'</p>
+<p># image process script</p>
+<p>IMG_SCRIPT='file://image_pipeline/scripts/processDCM.py'</p>
+<p># Email Notifications, comma separated</p>
+<p>EMAIL_ERROR="hongmeiq@atrihub.io"</p>
+<p>EMAIL_COMPLETION="hongmeiq@usc.edu"</p>
+<p>######### provide a good reason when updating the following variables</p>
+<p># Pipeline Name</p>
+<p>PIPELINE_NAME=\$EDC_EB_ENV"-img-pipe-"\$IMG_TYPE</p>
+<p># S3 buckets</p>
+<p>SOURCE_BUCKET_PREFIX=\$EDC_EB_ENV</p>
+<p>DESTINATION_BUCKET_PREFIX=\$SOURCE_BUCKET_PREFIX"-img-"\$IMG_TYPE</p>
+<p>WORKSPACE_BUCKET_PREFIX=\$DESTINATION_BUCKET_PREFIX"-ws"</p>
+<p># EC2 key pairs</p>
+<p>EC2_KEY_DOCKER="atri-img-pipe-ec2-docker"</p>
+<p>EC2_KEY_BATCH_DEBUG="atri-img-pipe-batch-debug"</p>
+<p># Container image</p>
+<p># ECR_REPO_NAME='atri-image-pipeline-docker-201803'</p>
+<p>ECR_REPO_NAME="par-custom-fetch-and-run-new"</p>
+<p># IAM roles</p>
+<p>ROLE_PREFIX=\$PIPELINE_NAME</p>
+<p>LAMBDA_ROLE_SUFFIX="-lambda-role"</p>
+<p>BATCH_SERVICE_ROLE="AWSBatchServiceRole"</p>
+<p>BATCH_INSTANCE_PROFILE="AWSBatchInstanceProfile"</p>
+<p>BATCH_JOB_ROLE=\$ROLE_PREFIX"-batch-job-role"</p>
+<p>LAMBDA_BASIC_ROLE='atri-lambda-basic-execution-role'</p>
+<p>LAMBDA_QUERY_READ_REPLICA_ROLE=\$ROLE_PREFIX"-query-read-replica"\$LAMBDA_ROLE_SUFFIX</p>
+<p>LAMBDA_SUBMIT_BATCH_JOB_ROLE=\$ROLE_PREFIX"-submit-batch-job"\$LAMBDA_ROLE_SUFFIX</p>
+<p>LAMBDA_GET_BATCH_JOB_STATUS_ROLE=\$ROLE_PREFIX"-get-batch-job-status"\$LAMBDA_ROLE_SUFFIX</p>
+<p>LAMBDA_COPY_TO_DESTINATION_ROLE=\$ROLE_PREFIX"-copy-to-destination"\$LAMBDA_ROLE_SUFFIX</p>
+<p>LAMBDA_NOTIFICATION_ROLE=\$ROLE_PREFIX"-notification"\$LAMBDA_ROLE_SUFFIX</p>
+<p>STEP_FUNCTION_ROLE=\$ROLE_PREFIX"-step-function-role"</p>
+<p>CLOUDWATCH_ROLE=\$EDC_EB_ENV"-img-pipe-cloudwatch-role"</p>
+<p># Lambda functions</p>
+<p>LAMBDA_QUERY_READ_REPLICA=\$PIPELINE_NAME"-query-read-replica"</p>
+<p>LAMBDA_CREATE_PIPELINE_JOB=\$PIPELINE_NAME"-create-pipeline-job"</p>
+<p>LAMBDA_SUBMIT_BATCH_JOB=\$PIPELINE_NAME"-submit-batch-job"</p>
+<p>LAMBDA_GET_BATCH_JOB_STATUS=\$PIPELINE_NAME"-get-batch-job-status"</p>
+<p>LAMBDA_COPY_TO_DESTINATION=\$PIPELINE_NAME"-copy-to-destination"</p>
+<p>LAMBDA_NOTIFICATION_FOR_ERROR=\$PIPELINE_NAME"-notification-for-error"</p>
+<p>LAMBDA_NOTIFICATION_FOR_COMPLETION=\$PIPELINE_NAME"-notification-for-completion"</p>
+<p># CloudFormation stacks</p>
+<p>IAM_ROLE_CF_STACK=\$EDC_EB_ENV"-img-pipe-"\$IMG_TYPE"-roles"</p>
+<p>BATCH_CF_STACK=\$EDC_EB_ENV"-img-pipe-"\$IMG_TYPE"-batch"</p>
+<p>LAMBDA_CF_STACK=\$EDC_EB_ENV"-img-pipe-"\$IMG_TYPE"-lambda"</p>
+<p>STEP_FN_CF_STACK=\$EDC_EB_ENV"-img-pipe-"\$IMG_TYPE"-step-fn"</p>
+<p>TRIGGER_CF_STACK=\$EDC_EB_ENV"-img-pipe-trigger"</p>
+</blockquote>
+<hr />
+<p>Code Block 2 pipeline config file example</p>
+<h3 id="brainstorming-archive-this-to-a-decision-log">Brainstorming (archive this to a decision log)</h3>
+<h4 id="prerequisite">Prerequisite</h4>
+<ul>
+<li>
+<p>Github repo:</p>
+<ul>
+<li>
+<p>AWS-Deployment</p>
+</li>
+<li>
+<p>EDC</p>
+</li>
+<li>
+<p>EDC-Pipeline (future)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>EDC study portal</p>
+<ul>
+<li>
+<p>readonly replica</p>
+</li>
+<li>
+<p>pipeline plug-in (future)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>S3 buckets:</p>
+<ul>
+<li>
+<p>EDC study portal bucket (source)</p>
+<ul>
+<li>naming convention: atri-edc-studyportal-aws_account_id</li>
+</ul>
+</li>
+<li>
+<p>Image pipeline destination bucket (target)</p>
+<ul>
+<li>naming convention: atri-edc-studyportal-img-aws_account_id</li>
+</ul>
+</li>
+<li>
+<p>Image pipeline workspace bucket (workspace)</p>
+<ul>
+<li>naming convention:
+    atri-edc-studyportal-img-workspace-aws_account_id</li>
+</ul>
+</li>
+<li>
+<p>1 source vs 1 target vs 1 workspace</p>
+<ul>
+<li><strong>area to improve</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Docker</p>
+<ul>
+<li>
+<p>IAM user with credential to push to EC2 and ECS instances</p>
+<ul>
+<li>
+<p>example on sandbox: user par-ec2-to-ecr with group
+    par-aws-cli-access</p>
+</li>
+<li>
+<p><strong>area to improve</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>EC2 key pair 1 - docker</p>
+</li>
+</ul>
+</li>
+<li>
+<p>EC2 key pair 2 - debug batch computing environment</p>
+</li>
+</ul>
+<h4 id="edc-pipeline-plugin">EDC Pipeline Plugin</h4>
+<p>pending...</p>
+<p>Currently the pipeline code is in EDC github repo branch hq_pipeline</p>
+<p>Create a CodePipeline (CodeBuild) that pushes EDC code to EDC study
+portal</p>
+<h4 id="batch">Batch</h4>
+<h5 id="part-1-docker">Part 1: Docker</h5>
+<p>Download AWS-Deployment Github zip</p>
+<p>Launch EC2 instance via AWS console</p>
+<ul>
+<li>
+<p>create new instance</p>
+<ul>
+<li>make sure only use the free tier one</li>
+</ul>
+</li>
+<li>
+<p>use "Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type"
+    (ami-0080e4c5bc078760e)</p>
+</li>
+<li>
+<p>no other overrides, use the default values</p>
+</li>
+<li>
+<p><strong>(area to improve the security: VPC)</strong></p>
+</li>
+<li>
+<p>choose a key pair 1 - to shell into the EC2 instance</p>
+</li>
+<li>
+<p>follow the popup instruction to shell into the instance</p>
+<ul>
+<li>
+<p>scp -i \~/.ssh/your_ssh_key
+    path_to_AWS-Deployment_zip_file EC2_instance_string:\~/</p>
+<ul>
+<li>EC2_instance string example:
+    ec2-user@ec2-3-92-236-127.compute-1.amazonaws.com:\~/.</li>
+</ul>
+</li>
+<li>
+<p>shell in to EC2 instance, unzip AWS-Deployment Github zip file</p>
+</li>
+<li>
+<p>setup IAM user credential to perform aws cli commands, so we can
+    push to EC2 and ECS instances in the future</p>
+<ul>
+<li>aws configure</li>
+</ul>
+</li>
+<li>
+<p>update the package:</p>
+<ul>
+<li>sudo yum update -y</li>
+</ul>
+</li>
+<li>
+<p>Install Docker:</p>
+<ul>
+<li>sudo yum install docker -y</li>
+</ul>
+</li>
+<li>
+<p>Start docker service</p>
+<ul>
+<li>sudo service docker start</li>
+</ul>
+</li>
+<li>
+<p>Add the ec2-user to the docker group so you can execute Docker
+    commands without using sudo.</p>
+<ul>
+<li>sudo usermod -a -G docker ec2-user</li>
+</ul>
+</li>
+<li>
+<p>if error: no basic auth credentials</p>
+<ul>
+<li>
+<p>eval \$(aws ecr get-login --no-include-email | sed
+    's|https://||')</p>
+<ul>
+<li>return: docker login ....</li>
+</ul>
+</li>
+<li>
+<p>sudo docker login ...</p>
+</li>
+</ul>
+</li>
+<li>
+<p>go to AWS-Deployment folder:
+    /trc_image_pipeline/pre-packaged-source/docker</p>
+</li>
+<li>
+<p>create / update docker image in ECR within EC2 instance</p>
+<ul>
+<li>
+<p>sh <strong>build_and_push.sh</strong> &lt;ECR image name&gt;</p>
+</li>
+<li>
+<p>note: batch script to process the images (AWS-Deployment)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>note: after dock image is created and stored to ECR, we can terminate
+the EC2 instance</p>
+<h5 id="part-11-creating-an-encrypted-compute-resource-ami">Part 1.1: Creating an encrypted compute resource AMI</h5>
+<p>Launch EC2 instance via AWS console</p>
+<ul>
+<li>
+<p>create new instance</p>
+<ul>
+<li>make sure only use the free tier one</li>
+</ul>
+</li>
+<li>
+<p>use "Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type"
+    (ami-0080e4c5bc078760e)</p>
+</li>
+<li>
+<p>no other overrides, use the default values</p>
+</li>
+<li>
+<p>choose a key pair 1 - to shell into the EC2 instance</p>
+</li>
+<li>
+<p>shell into EC2 instance </p>
+</li>
+<li>
+<p>update the package:</p>
+<ul>
+<li>sudo yum update -y</li>
+</ul>
+</li>
+<li>
+<p>Install Docker:</p>
+<ul>
+<li>sudo yum install docker -y</li>
+</ul>
+</li>
+<li>
+<p>Start docker service</p>
+<ul>
+<li>sudo service docker start</li>
+</ul>
+</li>
+<li>
+<p>Add the ec2-user to the docker group so you can execute Docker
+    commands without using sudo.</p>
+<ul>
+<li>sudo usermod -a -G docker ec2-user</li>
+</ul>
+</li>
+<li>
+<p>Install the ecs agent</p>
+<ul>
+<li>
+<p>sudo yum install -y ecs-init</p>
+</li>
+<li>
+<p>(optional) sudo start ecs</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Create /etc/ecs/ecs.config</p>
+<ul>
+<li>insert the following lines:\
+    ECS_ENABLE_TASK_IAM_ROLE=true\
+    ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true\
+    ECS_LOGFILE=/log/ecs-agent.log\
+    ECS_AVAILABLE_LOGGING_DRIVERS=["json-file","awslogs"]\
+    ECS_LOGLEVEL=info\
+    ECS_CLUSTER=*default\
+    *</li>
+</ul>
+</li>
+<li>
+<p>(optional) sudo stop ecs</p>
+</li>
+<li>
+<p>sudo rm -rf /var/lib/ecs/data/ecs_agent_data.json </p>
+</li>
+<li>
+<p>Create and encrypt AMI:</p>
+<ul>
+<li>
+<p>Select the instance</p>
+</li>
+<li>
+<p>choose Actions → Image → create image</p>
+</li>
+<li>
+<p>Go to IMAGES → AMIs from the side menu</p>
+</li>
+<li>
+<p>select the created AMI</p>
+</li>
+<li>
+<p>Copy the AMI with encrypt option selected.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Provide the AMI id when creating the resource in AWS batch to use
+    custom AMI after checking the “Enable user-specified Ami ID” option</p>
+</li>
+<li>
+<p>Stop or terminate the
+    instance.References:https://medium.com/@abbyfuller/not-containers-101-bringing-your-own-ami-or-configuring-on-the-fly-8f66ca7d7eefhttps://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.htmlhttps://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec
+    (https://medium.com/@abbyfuller/not-containers-101-bringing-your-own-ami-or-configuring-on-the-fly-8f66ca7d7eef)</p>
+</li>
+</ul>
+<h5 id="part-2-batch">Part 2: Batch</h5>
+<p><strong>convention: 1 environment, 1 job queue, 1 definition per pipeline</strong></p>
+<h6 id="create-new-compute-environment">create new compute environment</h6>
+<ul>
+<li>
+<p>managed</p>
+</li>
+<li>
+<p>service role: create new or use existing AWSBatchServiceRole</p>
+</li>
+<li>
+<p>Instance role: create new ecsInstanceRole</p>
+</li>
+<li>
+<p>key pair: key pair 2 for debugging purposes</p>
+</li>
+<li>
+<p>instance type: (default value) optimal/m5</p>
+<ul>
+<li><strong>area to improve: review this choice later</strong></li>
+</ul>
+</li>
+<li>
+<p>min vCPUs</p>
+<ul>
+<li>
+<p>0: production</p>
+</li>
+<li>
+<p>1: testing</p>
+</li>
+</ul>
+</li>
+<li>
+<p>desired vCPUs: 2 (based on the instance type we choose)</p>
+<ul>
+<li><strong>area to improve: review this value</strong></li>
+</ul>
+</li>
+<li>
+<p>Network:</p>
+<ul>
+<li>
+<p>testing: sanbox</p>
+</li>
+<li>
+<p>production: edc-xxx</p>
+</li>
+<li>
+<p><strong>note: keep public for now, need to improve security by using
+    private with NAT</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Tags</p>
+<ul>
+<li>
+<p>name</p>
+</li>
+<li>
+<p>study</p>
+</li>
+<li>
+<p>environment</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="create-a-job-queue">create a job queue</h5>
+<ul>
+<li>
+<p>priority: 1</p>
+</li>
+<li>
+<p>Enable job queue: check</p>
+</li>
+<li>
+<p>compute environment: created in previous step</p>
+</li>
+</ul>
+<h6 id="job-definitions">job definitions</h6>
+<ul>
+<li>
+<p>name</p>
+</li>
+<li>
+<p>job attempts: use default 1</p>
+</li>
+<li>
+<p>execution timeout (seconds): 300</p>
+</li>
+<li>
+<p>compute environment: created in previous step</p>
+</li>
+<li>
+<p>job role: allows docker image to communicate to s3 bucket, or other
+    AWS services in the future</p>
+<ul>
+<li>
+<p>e.g. par-imgpipe-ecstask-s3</p>
+</li>
+<li>
+<p><strong>area to improve</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>container image: ECR -&gt; image URI</p>
+</li>
+<li>
+<p>environment variables</p>
+<ul>
+<li>
+<p>SCRIPT_S3_IN: s3 bucket image workspace</p>
+</li>
+<li>
+<p>OUTPUT_S3_OUT: img-pipe-submit-batch-job defines this value</p>
+</li>
+<li>
+<p>INPUT_S3_IN: img-pipe-submit-batch-job defines this value</p>
+</li>
+<li>
+<p>OUT_NAME: img-pipe-submit-batch-job defines this value</p>
+</li>
+</ul>
+</li>
+<li>
+<p>parameters: will be defined by img-pipe-submit-batch-job</p>
+<ul>
+<li>
+<p>pipeline_code</p>
+</li>
+<li>
+<p>subjecteventcrffile_id</p>
+</li>
+<li>
+<p>edc_pipeline_file_id</p>
+</li>
+<li>
+<p>api_token</p>
+</li>
+<li>
+<p>api_url_dicom</p>
+</li>
+<li>
+<p>api_url_log_error</p>
+</li>
+</ul>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p>command: value will be overwritten by the Lambda Submit Job</p>
+<ul>
+<li>
+<p>default sample command for pipeline: <em>python3 processDCM.py
+    --pipelinecode Ref::pipeline_code --subjecteventcrffileid
+    Ref::subjecteventcrffile_id --edcpipelinefileid
+    Ref::edc_pipeline_file_id --apitoken Ref::api_token
+    --apiurldicom Ref::api_url_dicom --apiurllogerror
+    Ref::api_url_log_error</em></p>
+<ul>
+<li>Ref::xxxx = Ref::parameter</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>vCPUs: 1</p>
+</li>
+<li>
+<p>Memory(MB): 1024</p>
+<ul>
+<li><strong>area to improve: define this value in the lambda function
+    Submit Job as environment variable</strong></li>
+</ul>
+</li>
+<li>
+<p>Security:</p>
+<ul>
+<li>
+<p>privileged: check</p>
+</li>
+<li>
+<p>user: nobody</p>
+<ul>
+<li><strong>area to improve: review this value</strong></li>
+</ul>
+</li>
+<li>
+<p>area to improve: security, ask Emil</p>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="job">Job</h6>
+<ul>
+<li>
+<p>submit a job (j<strong>ust for testing for initial setup</strong>)</p>
+<ul>
+<li>
+<p>name</p>
+</li>
+<li>
+<p>job definition: created in previous step</p>
+</li>
+<li>
+<p>job queue: created in previous step</p>
+</li>
+<li>
+<p>job type: Single</p>
+</li>
+<li>
+<p>container properties:</p>
+<ul>
+<li>
+<p>echo job name (just for testing)</p>
+</li>
+<li>
+<p>leave blank for production</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="step-function_1">Step function</h4>
+<p>step function name: same as the pipeline code</p>
+<p>step function role: grant step function permission to invoke lambda
+functions</p>
+<ul>
+<li>par-imgpipe-sfn</li>
+</ul>
+<h5 id="lambda">Lambda</h5>
+<ul>
+<li>
+<p>create the following lambda functions:</p>
+<ul>
+<li>
+<p>list:</p>
+<ul>
+<li>
+<p>img-pipe-query-read-replica</p>
+</li>
+<li>
+<p>img-pipe-create-pipeline-job</p>
+</li>
+<li>
+<p>img-pipe-submit-batch-job</p>
+</li>
+<li>
+<p>img-pipe-get-batch-job-status</p>
+</li>
+<li>
+<p>img-pipe-copy-to-destination</p>
+</li>
+<li>
+<p>img-pipe-notification-for-error</p>
+</li>
+<li>
+<p>img-pipe-notification-for-completion</p>
+</li>
+<li>
+<p><strong>area to improve: refactor the script and environment
+    variables to be able to use for another image pipeline</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>service role: for step function used lambda function</p>
+<ul>
+<li>
+<p>e.g. par-imgpipe</p>
+</li>
+<li>
+<p><strong>area to improve</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p>VPC:</p>
+<ul>
+<li>area to improve: make sure the VPC is tight</li>
+</ul>
+</li>
+<li>
+<p>environment variables:</p>
+<ul>
+<li>
+<p>img-pipe-query-read-replica</p>
+<ul>
+<li>
+<p>edc_pipeline_api_token</p>
+</li>
+<li>
+<p>edc_pipeline_api_url_dicom</p>
+</li>
+<li>
+<p>edc_pipeline_api_url_log_error</p>
+</li>
+<li>
+<p>edc_pipeline_code</p>
+</li>
+<li>
+<p>rds_db_name</p>
+</li>
+<li>
+<p>rds_db_password</p>
+</li>
+<li>
+<p>rds_db_username</p>
+</li>
+<li>
+<p>rds_host</p>
+</li>
+<li>
+<p>workspace_bucket_name</p>
+</li>
+<li>
+<p>workspace_file_path</p>
+</li>
+<li>
+<p>note: add layer for psycopg2 library, python version
+    used: 3.7</p>
+</li>
+</ul>
+</li>
+<li>
+<p>img-pipe-create-pipeline-job</p>
+</li>
+<li>
+<p>img-pipe-submit-batch-job</p>
+</li>
+<li>
+<p>img-pipe-get-batch-job-status</p>
+</li>
+<li>
+<p>img-pipe-copy-to-destination</p>
+<ul>
+<li>
+<p>target_bucket_name</p>
+</li>
+<li>
+<p>target_file_path</p>
+</li>
+</ul>
+</li>
+<li>
+<p>img-pipe-notification-for-error</p>
+</li>
+<li>
+<p>img-pipe-notification-for-completion</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>area to improve:</strong></p>
+<ul>
+<li>
+<p>code refactor</p>
+</li>
+<li>
+<p>environment variables</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="state-machine-definition">State Machine Definition</h5>
+<hr />
+<blockquote>
+<p>{</p>
+<p>"StartAt":"Queryreadreplica",</p>
+<p>"States":{</p>
+<p>"Queryreadreplica":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:img-pipe-query-read-replica",</p>
+<p>"Next":"Create-pipeline-job",</p>
+<p>"Retry":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"Error"</p>
+<p>],</p>
+<p>"IntervalSeconds":1,</p>
+<p>"BackoffRate":2.0,</p>
+<p>"MaxAttempts":3</p>
+<p>}</p>
+<p>],</p>
+<p>"Catch":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"States.ALL"</p>
+<p>],</p>
+<p>"Next":"ErrorSNS"</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>"Create-pipeline-job":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:hq-create-pipeline-job",</p>
+<p>"Next":"SubmitJob",</p>
+<p>"Catch":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"States.ALL"</p>
+<p>],</p>
+<p>"Next":"ErrorSNS"</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>"SubmitJob":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-batchSubmitJob",</p>
+<p>"Next":"GetJobStatus",</p>
+<p>"Catch":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"States.ALL"</p>
+<p>],</p>
+<p>"Next":"ErrorSNS"</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>"GetJobStatus":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-batchGetJobStatus",</p>
+<p>"Next":"CheckJobStatus",</p>
+<p>"InputPath":"\$",</p>
+<p>"ResultPath":"\$.status"</p>
+<p>},</p>
+<p>"CheckJobStatus":{</p>
+<p>"Type":"Choice",</p>
+<p>"Choices":[</p>
+<p>{</p>
+<p>"Variable":"\$.status",</p>
+<p>"StringEquals":"FAILED",</p>
+<p>"Next":"ErrorSNS"</p>
+<p>},</p>
+<p>{</p>
+<p>"Variable":"\$.status",</p>
+<p>"StringEquals":"SUCCEEDED",</p>
+<p>"Next":"par-imgpipe-copy2dest"</p>
+<p>}</p>
+<p>],</p>
+<p>"Default":"Wait30Seconds"</p>
+<p>},</p>
+<p>"Wait30Seconds":{</p>
+<p>"Type":"Wait",</p>
+<p>"Seconds":15,</p>
+<p>"Next":"GetJobStatus"</p>
+<p>},</p>
+<p>"par-imgpipe-copy2dest":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-copy2dest",</p>
+<p>"Next":"par-imgpipe-updateStatus",</p>
+<p>"Catch":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"States.ALL"</p>
+<p>],</p>
+<p>"Next":"ErrorSNS"</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>"par-imgpipe-updateStatus":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-updateStatus",</p>
+<p>"Next":"processCompletionSNS",</p>
+<p>"Catch":[</p>
+<p>{</p>
+<p>"ErrorEquals":[</p>
+<p>"States.ALL"</p>
+<p>],</p>
+<p>"Next":"ErrorSNS"</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>"ErrorSNS":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-errorSNS",</p>
+<p>"Next":"processCompletionSNS"</p>
+<p>},</p>
+<p>"processCompletionSNS":{</p>
+<p>"Type":"Task",</p>
+<p>"Resource":"arn:aws:lambda:us-east-1:xxx:function:par-imgpipe-processCompletionSNS",</p>
+<p>"End":<strong>true</strong></p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<hr />
+<p>Trigger</p>
+<ul>
+<li>
+<p>we have the state machine (step function)</p>
+</li>
+<li>
+<p>we have source s3 bucket</p>
+</li>
+<li>
+<p>create trail in CloudTrail</p>
+<ul>
+<li>
+<p>trail name: same as step function for batch</p>
+</li>
+<li>
+<p>s3 bucket: workspace bucket</p>
+<ul>
+<li>
+<p>prefix: subjecteventcrffile</p>
+</li>
+<li>
+<p>write only</p>
+</li>
+</ul>
+</li>
+<li>
+<p>storage location (for logs)</p>
+<ul>
+<li>
+<p>s3 bucket: workspace</p>
+</li>
+<li>
+<p>prefix: logs/pipeline_code/trigger</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="relevant-documents">Relevant Documents</h3>
+<p><a href="https://atrihub.atlassian.net/wiki/spaces/RD/blog/2018/12/10/912261126/AWS+Batch">AWS
+Batch</a>
+(https://atrihub.atlassian.net/wiki/spaces/RD/blog/2018/12/10/912261126/AWS+Batch)</p>
+<p><a href="https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html">https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html</a>
+(https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html)</p>
+<h2 id="how-to-manually-trigger-image-pipeline-in-step-function">How to manually trigger image pipeline in step function</h2>
+<hr />
+<blockquote>
+<p>{</p>
+<p>"detail":{</p>
+<p>"requestParameters":{</p>
+<p>"bucketName": source s3 bucket name,</p>
+<p>"key":s3 object key </p>
+<p>} </p>
+<p>} </p>
+<p>}</p>
+</blockquote>
+<hr />
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTIwMDAyMzM1NzVdfQ==
+--></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
